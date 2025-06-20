@@ -5,6 +5,7 @@ export class Account {
    * @property {string} email
    * @property {string} name
    * @property {string} picture
+   * @property {string} coverImg
    * 
    * @param {AccountData} data
    */
@@ -13,6 +14,7 @@ export class Account {
     this.email = data.email
     this.name = data.name
     this.picture = data.picture
+    this.coverImg = data.coverImg
     // TODO add additional properties if needed
   }
 }
