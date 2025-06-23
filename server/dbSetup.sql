@@ -89,6 +89,34 @@ CREATE TABLE vaults (
     FOREIGN KEY (creator_id) REFERENCES accounts (id) ON DELETE CASCADE
 );
 
+INSERT INTO
+    vaults (
+        id,
+        created_at,
+        updated_at,
+        name,
+        description,
+        img,
+        is_private,
+        creator_id
+    )
+VALUES (
+        @Id,
+        @CreatedAt,
+        @UpdatedAt,
+        @Name,
+        @Description,
+        @Img,
+        @IsPrivate,
+        @CreatorId
+    );
+
+SELECT vaults.*, accounts.*
+FROM vaults
+    INNER JOIN accounts ON vaults.creator_id = accounts.id
+WHERE
+    vaults.id = LAST_INSERT_ID();
+
 CREATE TABLE vault_keeps (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,

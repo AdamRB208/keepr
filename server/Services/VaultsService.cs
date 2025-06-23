@@ -6,4 +6,12 @@ public class VaultsService
   {
     _vaultsRepository = vaultsRepository;
   }
+
+  internal Vault CreateVault(Vault vaultData)
+  {
+    Vault vault = _vaultsRepository.CreateVault(vaultData);
+    return vault;
+  }
+
+
 }
