@@ -117,6 +117,12 @@ FROM vaults
 WHERE
     vaults.id = LAST_INSERT_ID();
 
+SELECT vaults.*, accounts.*
+FROM vaults
+    INNER JOIN accounts ON accounts.id = vaults.creator_id
+WHERE
+    vaults.id = @vaultsId;
+
 CREATE TABLE vault_keeps (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,

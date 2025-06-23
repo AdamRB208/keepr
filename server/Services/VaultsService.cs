@@ -1,3 +1,4 @@
+
 public class VaultsService
 {
   private readonly VaultsRepository _vaultsRepository;
@@ -13,5 +14,13 @@ public class VaultsService
     return vault;
   }
 
-
+  internal Vault GetVaultById(int vaultId)
+  {
+    Vault vault = _vaultsRepository.GetVaultById(vaultId);
+    if (vault == null)
+    {
+      throw new Exception($"No Vault found with the id of {vaultId}!");
+    }
+    return vault;
+  }
 }

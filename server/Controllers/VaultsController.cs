@@ -13,6 +13,7 @@ public class VaultsController : ControllerBase
     _auth0Provider = auth0Provider;
   }
 
+
   [Authorize]
   [HttpPost]
   public async Task<ActionResult<Vault>> CreateVault([FromBody] Vault vaultData)
@@ -28,5 +29,26 @@ public class VaultsController : ControllerBase
     {
       return BadRequest(error.Message);
     }
+  }
+
+  [HttpGet("{vaultId}")]
+  public ActionResult<Vault> GetVaultById(int vaultId)
+  {
+    try
+    {
+      Vault vault = _vaultsService.GetVaultById(vaultId);
+      return Ok(vault);
+    }
+    catch (Exception error)
+    {
+      return BadRequest(error.Message);
+    }
+  }
+
+  [Authorize]
+  [HttpPut("{vaultId}")]
+  public async Task<ActionResult<Vault>> UpdateVault(int vaultId, [FromBody] Vault vaultUpdateData)
+  {
+
   }
 }

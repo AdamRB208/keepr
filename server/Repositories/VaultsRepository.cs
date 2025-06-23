@@ -1,3 +1,4 @@
+
 public class VaultsRepository
 {
   private readonly IDbConnection _db;
@@ -5,6 +6,20 @@ public class VaultsRepository
   public VaultsRepository(IDbConnection db)
   {
     _db = db;
+  }
+  internal Vault GetVaultById(int vaultId)
+  {
+    string sql = @"
+    SELECT vaults.*, accounts.* FROM vaults
+    INNER JOIN accounts ON accounts.id = vaults.creator_id
+    WHERE vaults.id = @vaultId;";
+
+    Vault foundVault = _db.Query(sql, (Vault vault, Account account) =>
+    {
+      vault.Creator = account;
+      return vault;
+    }, new { vaultId }).SingleOrDefault();
+    return foundVault;
   }
 
   internal Vault CreateVault(Vault vaultData)
@@ -24,4 +39,5 @@ public class VaultsRepository
     }, vaultData).SingleOrDefault();
     return createdVault;
   }
+
 }
