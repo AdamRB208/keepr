@@ -43,4 +43,18 @@ public class KeepsController : ControllerBase
     }
   }
 
+  [HttpGet("{keepId}")]
+  public ActionResult<Keep> GetKeepById(int keepId)
+  {
+    try
+    {
+      Keep keep = _keepsService.GetKeepsById(keepId);
+      return Ok(keep);
+    }
+    catch (Exception error)
+    {
+      return BadRequest(error.Message);
+    }
+  }
+
 }

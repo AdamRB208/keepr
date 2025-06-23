@@ -20,4 +20,17 @@ public class KeepsService
     List<Keep> keeps = _keepsRepository.GetKeeps();
     return keeps;
   }
+
+  internal Keep GetKeepsById(int keepId)
+  {
+    Keep keep = _keepsRepository.GetKeepsById(keepId);
+
+    if (keep == null)
+    {
+      throw new Exception($"No Keep found with the id of {keepId}");
+    }
+    return keep;
+  }
+
+
 }

@@ -32,6 +32,12 @@ SELECT keeps.*, accounts.*
 FROM keeps
     INNER JOIN accounts on accounts.id = keeps.creator_id;
 
+SELECT keeps.*, accounts.*
+FROM keeps
+    INNER JOIN accounts ON accounts.id = keeps.creator_id
+WHERE
+    keeps.id = @keepsId;
+
 INSERT INTO
     keeps (
         id,

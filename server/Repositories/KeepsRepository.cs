@@ -40,4 +40,17 @@ public class KeepsRepository
     return keeps;
   }
 
+  internal Keep GetKeepsById(int keepId)
+  {
+    string sql = @"
+    SELECT keeps.*, accounts.* FROM keeps INNER JOIN accounts ON accounts.id = keeps.creator_id WHERE keeps.id = @keepId;";
+
+    Keep foundKeep = _db.Query(sql, (Keep keep, Account account) =>
+    {
+      keep.Creator = account;
+      return keep;
+    }, new { keepId }).SingleOrDefault();
+    return foundKeep;
+  }
+
 }
