@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS account (
+CREATE TABLE IF NOT EXISTS accounts (
     id VARCHAR(255) NOT NULL PRIMARY KEY COMMENT 'primary key',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
@@ -7,6 +7,8 @@ CREATE TABLE IF NOT EXISTS account (
     picture VARCHAR(255) COMMENT 'User Picture',
     cover_img VARCHAR(1000)
 ) default charset utf8mb4 COMMENT '';
+
+ALTER table accounts ADD COLUMN cover_img VARCHAR(1000);
 
 CREATE TABLE keeps (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -17,8 +19,14 @@ CREATE TABLE keeps (
     img VARCHAR(1000) NOT NULL,
     views INT,
     creator_id VARCHAR(255) NOT NULL,
-    FOREIGN KEY (creator_id) REFERENCES account (id) ON DELETE CASCADE
+    FOREIGN KEY (creator_id) REFERENCES accounts (id) ON DELETE CASCADE
 );
+
+SELECT keeps.*, accounts.*
+FROM keeps
+    INNER JOIN accounts ON keeps.creator_id = accounts.id
+WHERE
+    keeps.id = LAST_INSERT_ID();
 
 INSERT INTO
     keeps (
@@ -42,11 +50,11 @@ VALUES (
         @CreatorId
     );
 
-SELECT keeps.*, account.*
+SELECT keeps.*, accounts.id
 FROM keeps
-    INNER JOIN account ON keeps.creator_id = account.id
+    INNER JOIN accounts ON accounts.id = keeps.creator_id
 WHERE
-    keeps.id = LAST_INSERT_ID();
+    keeps.creator_id = @creator_id
 
 CREATE TABLE vaults (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -57,7 +65,7 @@ CREATE TABLE vaults (
     img VARCHAR(1000) NOT NULL,
     is_private BOOLEAN NOT NULL DEFAULT false,
     creator_id VARCHAR(255) NOT NULL,
-    FOREIGN KEY (creator_id) REFERENCES account (id) ON DELETE CASCADE
+    FOREIGN KEY (creator_id) REFERENCES accounts (id) ON DELETE CASCADE
 );
 
 CREATE TABLE vault_keeps (
@@ -69,16 +77,26 @@ CREATE TABLE vault_keeps (
     creator_id VARCHAR(255) NOT NULL,
     FOREIGN KEY (keep_id) REFERENCES keeps (id) ON DELETE CASCADE,
     FOREIGN KEY (vault_id) REFERENCES vaults (id) ON DELETE CASCADE,
-    FOREIGN KEY (creator_id) REFERENCES account (id) ON DELETE CASCADE,
+    FOREIGN KEY (creator_id) REFERENCES accounts (id) ON DELETE CASCADE,
     UNIQUE (keep_id, vault_id)
 );
 
-CREATE TABLE account (
-    id VARCHAR(255) NOT NULL PRIMARY KEY COMMENT 'primary key',
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
-    name VARCHAR(255) COMMENT 'User Name',
-    email VARCHAR(255) UNIQUE COMMENT 'User Email',
-    picture VARCHAR(255) COMMENT 'User Picture',
-    cover_img VARCHAR(1000) COMMENT 'User Cover Image'
-) default charset utf8mb4 COMMENT '';
+-- CREATE TABLE account (
+--     id VARCHAR(255) NOT NULL PRIMARY KEY COMMENT 'primary key',
+--     created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
+--     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+--     name VARCHAR(255) COMMENT 'User Name',
+--     email VARCHAR(255) UNIQUE COMMENT 'User Email',
+--     picture VARCHAR(255) COMMENT 'User Picture',
+--     cover_img VARCHAR(1000) COMMENT 'User Cover Image'
+-- ) default charset utf8mb4 COMMENT '';
+
+DROP TABLE IF EXISTS vault_keeps;
+
+DROP TABLE IF EXISTS keeps;
+
+DROP TABLE IF EXISTS vaults;
+
+-- DROP TABLE IF EXISTS account;
+
+-- TODO alter the accounts table to include the coverImg
