@@ -12,6 +12,6 @@ public class KeepService
   internal Keep CreateKeep(Keep keepData)
   {
     Keep keep = _keepRepository.CreateKeep(keepData);
-    return (keep);
+    return keep;
   }
 }

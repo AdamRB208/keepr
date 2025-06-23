@@ -16,7 +16,7 @@ public class KeepRepository
     keeps (id, created_at, updated_at, name, description, img, views, creator_id)
     VALUES (@Id, @CreatedAt, @UpdatedAt, @Name, @Description, @Img, @Views, @CreatorId);
 
-    SELECT keeps.*, accounts.* FROM keeps INNER JOIN accounts ON keeps.creator_id = accounts.id WHERE keeps.id = LAST_INSERT_ID();
+    SELECT keeps.*, account.* FROM keeps INNER JOIN account ON keeps.creator_id = account.id WHERE keeps.id = LAST_INSERT_ID();
     ";
 
     Keep createdKeep = _db.Query(sql, (Keep keep, Account account) =>
