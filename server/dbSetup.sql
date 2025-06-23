@@ -28,6 +28,10 @@ FROM keeps
 WHERE
     keeps.id = LAST_INSERT_ID();
 
+SELECT keeps.*, accounts.*
+FROM keeps
+    INNER JOIN accounts on accounts.id = keeps.creator_id;
+
 INSERT INTO
     keeps (
         id,
@@ -80,23 +84,3 @@ CREATE TABLE vault_keeps (
     FOREIGN KEY (creator_id) REFERENCES accounts (id) ON DELETE CASCADE,
     UNIQUE (keep_id, vault_id)
 );
-
--- CREATE TABLE account (
---     id VARCHAR(255) NOT NULL PRIMARY KEY COMMENT 'primary key',
---     created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
---     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
---     name VARCHAR(255) COMMENT 'User Name',
---     email VARCHAR(255) UNIQUE COMMENT 'User Email',
---     picture VARCHAR(255) COMMENT 'User Picture',
---     cover_img VARCHAR(1000) COMMENT 'User Cover Image'
--- ) default charset utf8mb4 COMMENT '';
-
-DROP TABLE IF EXISTS vault_keeps;
-
-DROP TABLE IF EXISTS keeps;
-
-DROP TABLE IF EXISTS vaults;
-
--- DROP TABLE IF EXISTS account;
-
--- TODO alter the accounts table to include the coverImg

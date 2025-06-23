@@ -12,6 +12,20 @@ public class KeepsController : ControllerBase
     _auth0Provider = auth0Provider;
   }
 
+  [HttpGet]
+  public ActionResult<List<Keep>> GetAllKeeps()
+  {
+    try
+    {
+      List<Keep> keeps = _keepsService.GetKeeps();
+      return Ok(keeps);
+    }
+    catch (Exception error)
+    {
+      return BadRequest(error.Message);
+    }
+  }
+
   [Authorize]
   [HttpPost]
   public async Task<ActionResult<Keep>> CreateKeep([FromBody] Keep keepData)
@@ -29,17 +43,4 @@ public class KeepsController : ControllerBase
     }
   }
 
-  [HttpGet]
-  public ActionResult<List<Keep>> GetAllKeeps()
-  {
-    try
-    {
-      List<Keep> keeps = _keepsService.GetKeeps();
-      return Ok(keeps);
-    }
-    catch (Exception error)
-    {
-      return BadRequest(error.Message);
-    }
-  }
 }
