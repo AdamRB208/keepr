@@ -60,6 +60,17 @@ VALUES (
         @CreatorId
     );
 
+UPDATE keeps
+SET
+    name = @Name,
+    description = @Description,
+    img = @Img
+WHERE
+    id = @Id
+LIMIT 1;
+
+DELETE FROM keeps WHERE keeps.id = @Id;
+
 SELECT keeps.*, accounts.id
 FROM keeps
     INNER JOIN accounts ON accounts.id = keeps.creator_id

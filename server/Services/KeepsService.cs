@@ -32,5 +32,32 @@ public class KeepsService
     return keep;
   }
 
+  internal Keep UpdateKeep(int keepId, Keep keepUpdateData, Account userInfo)
+  {
+    Keep keep = GetKeepsById(keepId);
+    if (keep.CreatorId != userInfo.Id)
+    {
+      throw new Exception($"YOU ARE NOT ALLOWED TO UPDATE SOMEONE ELSE'S KEEP, {userInfo.Name.ToUpper()}!");
+    }
+
+    keep.Name = keepUpdateData.Name ?? keep.Name;
+    keep.Description = keepUpdateData.Description ?? keep.Description;
+    keep.Img = keepUpdateData.Img ?? keep.Img;
+
+    _keepsRepository.UpdateKeep(keep);
+
+    return keep;
+  }
+
+  internal string DeleteKeep(int keepId, Account userInfo)
+  {
+    Keep keep = GetKeepsById(keepId);
+    if (keep.CreatorId != userInfo.Id)
+    {
+      throw new Exception($"You cannot delete another user's recipe, {userInfo.Name.ToUpper()}!");
+    }
+    _keepsRepository.DeleteKeep(keepId);
+    return $"Deleted keep {keep.Name}!";
+  }
 
 }

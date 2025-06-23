@@ -53,4 +53,29 @@ public class KeepsRepository
     return foundKeep;
   }
 
+  internal void UpdateKeep(Keep keep)
+  {
+    string sql = @"
+    UPDATE keeps SET name = @Name, description = @Description, img = @Img WHERE id = @Id LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, keep);
+
+    if (rowsAffected == 0)
+    {
+      throw new Exception("No rows were updated!");
+    }
+    if (rowsAffected > 1)
+    {
+      throw new Exception(rowsAffected + "rows affected!");
+    }
+  }
+
+  internal void DeleteKeep(int keepId)
+  {
+    string sql = @"DELETE FROM keeps WHERE keeps.id = @KeepId;";
+    int rowsAffected = _db.Execute(sql, new { keepId });
+    if (rowsAffected == 0) throw new Exception("Delete was unsuccessful");
+    if (rowsAffected > 1) throw new Exception("Delete was too successful");
+  }
+
 }
