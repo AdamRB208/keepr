@@ -1,3 +1,4 @@
+namespace keepr.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
