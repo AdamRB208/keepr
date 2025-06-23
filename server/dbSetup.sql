@@ -123,6 +123,15 @@ FROM vaults
 WHERE
     vaults.id = @vaultsId;
 
+UPDATE vaults
+SET
+    name = @Name,
+    description = @Description,
+    img = @Img
+WHERE
+    id = @Id
+LIMIT 1;
+
 CREATE TABLE vault_keeps (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,

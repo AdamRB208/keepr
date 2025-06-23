@@ -1,4 +1,5 @@
 
+
 public class VaultsRepository
 {
   private readonly IDbConnection _db;
@@ -40,4 +41,20 @@ public class VaultsRepository
     return createdVault;
   }
 
+  internal void UpdateVault(Vault vault)
+  {
+    string sql = @" 
+    UPDATE vaults SET name = @Name, description = @Description, img = @Img WHERE id = @Id LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, vault);
+
+    if (rowsAffected == 0)
+    {
+      throw new Exception("No rows were updated!");
+    }
+    if (rowsAffected > 1)
+    {
+      throw new Exception(rowsAffected + "rows affected!");
+    }
+  }
 }

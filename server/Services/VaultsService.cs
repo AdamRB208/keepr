@@ -1,4 +1,5 @@
 
+
 public class VaultsService
 {
   private readonly VaultsRepository _vaultsRepository;
@@ -21,6 +22,22 @@ public class VaultsService
     {
       throw new Exception($"No Vault found with the id of {vaultId}!");
     }
+    return vault;
+  }
+
+  internal Vault UpdateVault(int vaultId, Vault vaultUpdateData, Account userInfo)
+  {
+    Vault vault = GetVaultById(vaultId);
+    if (vault.CreatorId != userInfo.Id)
+    {
+      throw new Exception($"YOU ARE NOT ALLOWED TO UPDATE SOMEONE ELSES VAULT, {userInfo.Name.ToUpper()}!");
+    }
+
+    vault.Name = vaultUpdateData.Name ?? vault.Name;
+    vault.Description = vaultUpdateData.Description ?? vault.Description;
+    vault.Img = vaultUpdateData.Img ?? vault.Img;
+
+    _vaultsRepository.UpdateVault(vault);
     return vault;
   }
 }
