@@ -29,13 +29,28 @@ async function getKeeps() {
 
 <template>
   <section class="container">
-    <div class="row">
-      <div v-for="keeps in keep" :key="keeps.id" class="col-md-4">
-        <KeepCard :keeps="keeps" />
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-10 masonry-container">
+        <div v-for="keeps in keep" :key="keeps.id">
+          <KeepCard :keeps="keeps" />
+        </div>
       </div>
     </div>
   </section>
   <KeepModal />
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.masonry-container {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-rows: max-content;
+  grid-template-rows: masonry;
+}
+
+.masonry-container>* {
+  display: inline-block;
+  break-inside: avoid;
+}
+</style>

@@ -47,7 +47,8 @@ async function setActiveKeep(keeps, keepsId) {
 .Keep-Img {
   object-fit: cover;
   width: 100%;
-  height: 300px;
+  min-height: 150px;
+  max-height: 300px;
   border-radius: 25px;
   background: #ffffff;
   background-position: bottom;
