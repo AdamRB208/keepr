@@ -8,6 +8,7 @@ export const AppState = reactive({
   account: null,
   /** @type {import('./models/Keep.js').Keep[]} user info from the database*/
   keeps: [],
+  activeKeep: null,
 
 })
 

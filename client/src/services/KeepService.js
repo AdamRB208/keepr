@@ -5,6 +5,11 @@ import { AppState } from "@/AppState.js"
 
 class KeepService {
 
+  setActiveKeep(activeKeep) {
+    AppState.activeKeep = activeKeep
+    logger.log('activeKeep', activeKeep)
+  }
+
   async getKeeps() {
     const response = await api.get('api/keeps')
     logger.log('Got Keeps!', response.data)

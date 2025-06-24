@@ -1,20 +1,38 @@
 <script setup>
 import { AppState } from '@/AppState.js';
 import { Keep } from '@/models/Keep.js';
-import { computed } from 'vue';
+import { keepService } from '@/services/KeepService.js';
+import { logger } from '@/utils/Logger.js';
+import { Pop } from '@/utils/Pop.js';
+import { useRoute } from 'vue-router';
 
-const account = computed(() => AppState.account)
+const route = useRoute()
 
 defineProps({
   keeps: { type: Keep, required: true }
 })
+
+async function setActiveKeep(keeps, keepsId) {
+  try {
+    AppState.activeKeep = keeps
+    await keepService.setActiveKeep(keeps)
+    logger.log('Setting active keep', keeps)
+    keepsId = route.params.keepsId || keepsId
+    logger.log('KeepsId', keepsId)
+  }
+  catch (error) {
+    Pop.error(error, 'COULD NOT SET ACTIVE KEEP!');
+    logger.log('Could not set active keep!', error)
+  }
+}
 </script>
 
 
 <template>
   <div class="Keep-Card m-1 mb-3">
     <div class="Card-Img">
-      <img :src="keeps.img" :alt="`image of ${keeps.name}`" class="Keep-Img" type="button">
+      <img @click="setActiveKeep(keeps, keeps.id)" :src="keeps.img" :alt="`image of ${keeps.name}`" class="Keep-Img"
+        type="button" data-bs-toggle="modal" data-bs-target="#keepModal">
       <div class="Card-Text">
         <span class="m-2 w-75">{{ keeps.name }}</span>
         <img :src="keeps.creator.picture" :alt="`cover image for user ${keeps.creator.name}`"
