@@ -12,7 +12,8 @@ import { RouterView } from 'vue-router';
     <RouterView />
   </main>
   <footer class=" text-center">
-    Made with <i class="mdi mdi-heart text-pink"></i> by CodeWorks
+    Made with <i class="mdi mdi-vuejs text-vue"></i><i class="mdi mdi-language-csharp"></i> & SQL by AdamRB208 <i
+      class="mdi mdi-github"></i>
   </footer>
 </template>
 
