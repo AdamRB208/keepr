@@ -52,5 +52,6 @@ function logout() {
   width: 40px;
   object-fit: cover;
   object-position: center;
+  border-radius: 50%;
 }
 </style>

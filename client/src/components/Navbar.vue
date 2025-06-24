@@ -18,7 +18,7 @@ watch(theme, () => {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-md bg-white border-bottom border-black">
+  <nav class="navbar navbar-expand-md bg-white border-bottom border-black mb-4">
     <div class="container gap-2">
       <RouterLink :to="{ name: 'Home' }" class="d-flex align-items-start text-light">
         <b class="fs-5 text-dark">Keepr</b>

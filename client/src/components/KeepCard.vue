@@ -17,7 +17,8 @@ defineProps({
       <img :src="keeps.img" :alt="`image of ${keeps.name}`" class="Keep-Img" type="button">
       <div class="Card-Text">
         <span class="m-2 w-75">{{ keeps.name }}</span>
-        <img :src="account.coverImg" :alt="`cover image for user ${account.name}`" class="w-25">
+        <img :src="keeps.creator.picture" :alt="`cover image for user ${keeps.creator.name}`"
+          class="Creator-Img mb-1 me-1" :title="keeps.creator.name" type="button">
       </div>
     </div>
   </div>
@@ -32,6 +33,7 @@ defineProps({
   border-radius: 25px;
   background: #ffffff;
   background-position: bottom;
+  border: 1px solid rgba(36, 36, 36, 0.474);
 }
 
 .Card-Img {
@@ -52,5 +54,11 @@ defineProps({
   border-radius: 0 0 25px 25px;
   padding: 5px;
   height: 15%;
+}
+
+.Creator-Img {
+  border-radius: 50%;
+  text-shadow: 0 0 3px #242222;
+  max-width: 25%;
 }
 </style>
