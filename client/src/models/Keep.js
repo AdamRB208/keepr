@@ -1,4 +1,4 @@
-export class Keepr {
+export class Keep {
   constructor(data) {
     this.id = data.id
     this.createdAt = new Date(data.createdAt)
