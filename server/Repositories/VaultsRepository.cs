@@ -57,4 +57,13 @@ public class VaultsRepository
       throw new Exception(rowsAffected + "rows affected!");
     }
   }
+
+  internal void DeleteVault(int vaultId)
+  {
+    string sql = @"
+    DELETE FROM vaults WHERE vaults.id = @VaultId;";
+    int rowsAffected = _db.Execute(sql, new { vaultId });
+    if (rowsAffected == 0) throw new Exception("Delete was unsuccessful");
+    if (rowsAffected > 1) throw new Exception("Delete was too successful");
+  }
 }

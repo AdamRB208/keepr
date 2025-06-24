@@ -132,6 +132,8 @@ WHERE
     id = @Id
 LIMIT 1;
 
+DELETE FROM vaults WHERE vaults.id = @VaultId;
+
 CREATE TABLE vault_keeps (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,

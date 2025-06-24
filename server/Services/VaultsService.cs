@@ -15,6 +15,7 @@ public class VaultsService
     return vault;
   }
 
+
   internal Vault GetVaultById(int vaultId)
   {
     Vault vault = _vaultsRepository.GetVaultById(vaultId);
@@ -39,5 +40,15 @@ public class VaultsService
 
     _vaultsRepository.UpdateVault(vault);
     return vault;
+  }
+  internal string DeleteVault(int vaultId, Account userInfo)
+  {
+    Vault vault = GetVaultById(vaultId);
+    if (vault.CreatorId != userInfo.Id)
+    {
+      throw new Exception($"You cannot delete another users vault, {userInfo.Name.ToUpper()}!");
+    }
+    _vaultsRepository.DeleteVault(vaultId);
+    return $"Deleted vault {vault.Name}!";
   }
 }
