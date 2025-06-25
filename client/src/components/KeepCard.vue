@@ -35,8 +35,8 @@ async function setActiveKeep(keeps, keepsId) {
       <img @click="setActiveKeep(keeps, keeps.id)" :src="keeps.img" :alt="`image of ${keeps.name}`" class="Keep-Img"
         type="button" data-bs-toggle="modal" data-bs-target="#keepModal">
       <div class="Card-Text">
-        <span class="m-2 w-75">{{ keeps.name }}</span>
-        <RouterLink :to="{ name: 'Profile' }">
+        <span class="m-2 w-100">{{ keeps.name }}</span>
+        <RouterLink :to="{ name: 'Profile' }" class="d-flex">
           <img :src="keeps.creator.picture" :alt="`cover image for user ${keeps.creator.name}`"
             class="Creator-Img mb-1 me-1" :title="keeps.creator.name" type="button">
         </RouterLink>
@@ -81,6 +81,7 @@ async function setActiveKeep(keeps, keepsId) {
 .Creator-Img {
   border-radius: 50%;
   text-shadow: 0 0 3px #242222;
-  max-width: 25%;
+  max-width: 100%;
+  min-block-size: 2.5rem;
 }
 </style>
