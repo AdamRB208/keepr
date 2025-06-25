@@ -19,6 +19,7 @@ async function setActiveKeep(keeps, keepsId) {
     logger.log('Setting active keep', keeps)
     keepsId = route.params.keepsId || keepsId
     logger.log('KeepsId', keepsId)
+    keeps.views++
   }
   catch (error) {
     Pop.error(error, 'COULD NOT SET ACTIVE KEEP!');

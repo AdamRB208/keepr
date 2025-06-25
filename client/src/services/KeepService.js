@@ -8,6 +8,7 @@ class KeepService {
   setActiveKeep(activeKeep) {
     AppState.activeKeep = activeKeep
     logger.log('activeKeep', activeKeep)
+
   }
 
   async getKeeps() {
