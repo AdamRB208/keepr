@@ -50,8 +50,7 @@ async function setActiveKeep(keeps, keepsId) {
 .Keep-Img {
   object-fit: cover;
   width: 100%;
-  min-height: 150px;
-  max-height: 300px;
+  height: 100%;
   border-radius: 25px;
   background: #ffffff;
   background-position: bottom;
@@ -60,7 +59,7 @@ async function setActiveKeep(keeps, keepsId) {
 
 .Card-Img {
   position: relative;
-  width: 100%;
+  min-width: 100%;
 }
 
 .Card-Text {
@@ -75,13 +74,13 @@ async function setActiveKeep(keeps, keepsId) {
   background: linear-gradient(0deg, #1716167b 20%, transparent);
   border-radius: 0 0 25px 25px;
   padding: 5px;
-  height: 15%;
 }
 
 .Creator-Img {
   border-radius: 50%;
   text-shadow: 0 0 3px #242222;
-  max-width: 100%;
+  min-width: 100%;
   min-block-size: 2.5rem;
+  height: 44px;
 }
 </style>

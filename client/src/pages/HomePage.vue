@@ -41,12 +41,21 @@ async function getKeeps() {
 </template>
 
 <style scoped lang="scss">
+// .masonry-container {
+//   display: grid;
+//   gap: 10px;
+//   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+//   grid-template-rows: max-content;
+//   grid-template-rows: masonry;
+// }
+
+// .masonry-container>* {
+//   display: inline-block;
+//   break-inside: avoid;
+// }
+
 .masonry-container {
-  display: grid;
-  gap: 10px;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-template-rows: max-content;
-  grid-template-rows: masonry;
+  columns: 200px;
 }
 
 .masonry-container>* {
