@@ -1,8 +1,11 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { loadState, saveState } from '../utils/Store.js';
 import Login from './Login.vue';
 import CreateDropdown from './CreateDropdown.vue';
+import { AppState } from '@/AppState.js';
+
+const account = computed(() => AppState.account)
 
 const theme = ref(loadState('theme') || 'light')
 
@@ -31,7 +34,7 @@ watch(theme, () => {
       <!-- collapsing menu -->
       <div class="collapse navbar-collapse " id="navbar-links">
         <ul class="navbar-nav">
-          <li>
+          <li v-if="account">
             <CreateDropdown />
           </li>
         </ul>
