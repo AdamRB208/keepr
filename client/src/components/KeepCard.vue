@@ -4,9 +4,12 @@ import { Keep } from '@/models/Keep.js';
 import { keepService } from '@/services/KeepService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute()
+
+const account = computed(() => AppState.account)
 
 defineProps({
   keeps: { type: Keep, required: true }
@@ -26,12 +29,28 @@ async function setActiveKeep(keeps, keepsId) {
     logger.log('Could not set active keep!', error)
   }
 }
+
+async function deleteKeep(keepId) {
+  try {
+    const confirmed = await Pop.confirm("Are you sure you want to delete this Keep?")
+    if (!confirmed) {
+      return
+    }
+    await keepService.deleteKeep(keepId)
+  }
+  catch (error) {
+    Pop.error(error, 'COULD NOT DELETE KEEP!');
+    logger.log('Could not delete keep!', error)
+  }
+}
+
 </script>
 
 
 <template>
   <div class="Keep-Card m-1 mb-3">
     <div class="Card-Img">
+      <i @click="deleteKeep(keeps.id)" class="mdi mdi-alpha-x-circle text-danger text-end ms-2" role="button"></i>
       <img @click="setActiveKeep(keeps, keeps.id)" :src="keeps.img" :alt="`image of ${keeps.name}`" class="Keep-Img"
         type="button" data-bs-toggle="modal" data-bs-target="#keepModal">
       <div class="Card-Text">
@@ -55,6 +74,14 @@ async function setActiveKeep(keeps, keepsId) {
   background: #ffffff;
   background-position: bottom;
   border: 1px solid rgba(36, 36, 36, 0.474);
+}
+
+i {
+  position: absolute;
+  background-position: top;
+  font-size: 1em;
+  width: 100%;
+  margin-bottom: 2rem;
 }
 
 .Card-Img {
