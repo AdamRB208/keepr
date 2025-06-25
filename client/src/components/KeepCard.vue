@@ -36,8 +36,10 @@ async function setActiveKeep(keeps, keepsId) {
         type="button" data-bs-toggle="modal" data-bs-target="#keepModal">
       <div class="Card-Text">
         <span class="m-2 w-75">{{ keeps.name }}</span>
-        <img :src="keeps.creator.picture" :alt="`cover image for user ${keeps.creator.name}`"
-          class="Creator-Img mb-1 me-1" :title="keeps.creator.name" type="button">
+        <RouterLink :to="{ name: 'Profile' }">
+          <img :src="keeps.creator.picture" :alt="`cover image for user ${keeps.creator.name}`"
+            class="Creator-Img mb-1 me-1" :title="keeps.creator.name" type="button">
+        </RouterLink>
       </div>
     </div>
   </div>
