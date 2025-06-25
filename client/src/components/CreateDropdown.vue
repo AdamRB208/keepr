@@ -1,4 +1,6 @@
 <script setup>
+import CreateKeepModal from './CreateKeepModal.vue';
+
 
 </script>
 
@@ -9,9 +11,11 @@
       Create
     </button>
     <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#">Create Keepr</a></li>
+      <li><button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#createKeepModal">Create
+          Keepr</button></li>
       <li><a class="dropdown-item" href="#">Create Vault</a></li>
     </ul>
+    <CreateKeepModal />
   </div>
 </template>
 
