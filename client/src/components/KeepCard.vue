@@ -11,6 +11,8 @@ const route = useRoute()
 
 const account = computed(() => AppState.account)
 
+const keep = computed(() => AppState.keeps)
+
 defineProps({
   keeps: { type: Keep, required: true }
 })
@@ -50,7 +52,8 @@ async function deleteKeep(keepId) {
 <template>
   <div class="Keep-Card m-1 mb-3">
     <div class="Card-Img">
-      <i @click="deleteKeep(keeps.id)" class="mdi mdi-alpha-x-circle text-danger text-end ms-2" role="button"></i>
+      <i v-if="account && keeps.creatorId == account.id" @click="deleteKeep(keeps.id)"
+        class="mdi mdi-alpha-x-circle text-danger text-end ms-2" role="button"></i>
       <img @click="setActiveKeep(keeps, keeps.id)" :src="keeps.img" :alt="`image of ${keeps.name}`" class="Keep-Img"
         type="button" data-bs-toggle="modal" data-bs-target="#keepModal">
       <div class="Card-Text">
