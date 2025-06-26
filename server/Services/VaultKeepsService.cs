@@ -1,4 +1,5 @@
 
+
 public class VaultKeepsService
 {
 
@@ -9,4 +10,9 @@ public class VaultKeepsService
     _vaultKeepsRepository = vaultKeepsRepository;
   }
 
+  internal VaultKeep CreateVaultKeep(VaultKeep vaultKeepData)
+  {
+    VaultKeep vaultkeep = _vaultKeepsRepository.CreateVaultKeep(vaultKeepData);
+    return vaultkeep;
+  }
 }

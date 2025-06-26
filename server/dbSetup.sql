@@ -146,3 +146,11 @@ CREATE TABLE vault_keeps (
     FOREIGN KEY (creator_id) REFERENCES accounts (id) ON DELETE CASCADE,
     UNIQUE (keep_id, vault_id)
 );
+
+INSERT INTO
+    vault_keeps (keep_id, vault_id, creator_id)
+VALUES (
+        12,
+        4,
+        '67e592b83f3192a0a5480d98'
+    );
