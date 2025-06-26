@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace keepr.Controllers;
 
 [ApiController]
@@ -7,10 +9,13 @@ public class VaultsController : ControllerBase
   private readonly VaultsService _vaultsService;
   private readonly Auth0Provider _auth0Provider;
 
-  public VaultsController(VaultsService vaultsService, Auth0Provider auth0Provider)
+  private readonly VaultKeepsService _vaultKeepsService;
+
+  public VaultsController(VaultsService vaultsService, Auth0Provider auth0Provider, VaultKeepsService vaultKeepsService)
   {
     _vaultsService = vaultsService;
     _auth0Provider = auth0Provider;
+    _vaultKeepsService = vaultKeepsService;
   }
 
 
@@ -76,4 +81,21 @@ public class VaultsController : ControllerBase
       return BadRequest(error.Message);
     }
   }
+
+  [HttpGet("{vaultId}/keeps")]
+  public async Task<ActionResult<List<Keep>>> GetKeepsInVault(int vaultId)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+
+      List<Keep> keeps = _vaultKeepsService.GetKeepsInVault(vaultId, userInfo?.Id);
+      return Ok(keeps);
+    }
+    catch (Exception error)
+    {
+      return BadRequest(error.Message);
+    }
+  }
+
 }

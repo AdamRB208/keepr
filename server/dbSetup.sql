@@ -154,3 +154,40 @@ VALUES (
         4,
         '67e592b83f3192a0a5480d98'
     );
+
+SELECT keep_id, vault_id, vault_keeps.creator_id
+FROM
+    vault_keeps
+    INNER JOIN keeps ON keeps.id = vault_keeps.keep_id
+    INNER JOIN vaults ON vaults.id = vault_keeps.vault_id
+    INNER JOIN accounts ON accounts.id = vault_keeps.creator_id
+WHERE
+    keeps.id = @KeepId
+    AND vaults.id = @VaultId
+    AND accounts.id = @CreatorId;
+
+SELECT keep_id, vault_id, vault_keeps.creator_id
+FROM
+    vault_keeps
+    INNER JOIN keeps ON keeps.id = vault_keeps.keep_id
+    INNER JOIN vaults ON vaults.id = vault_keeps.vault_id
+    INNER JOIN accounts ON accounts.id = vault_keeps.creator_id
+WHERE
+    vault_id = @VaultId;
+
+SELECT keep_id, vault_id, vault_keeps.creator_id
+FROM
+    vault_keeps
+    INNER JOIN keeps ON keeps.id = vault_keeps.keep_id
+    INNER JOIN vaults ON vaults.id = vault_keeps.vault_id
+    INNER JOIN accounts ON accounts.id = vault_keeps.creator_id
+WHERE
+    vault_id = @VaultId;
+
+SELECT keep_id, vault_id, vault_keeps.creator_id
+FROM
+    vault_keeps
+    INNER JOIN keeps ON keeps.id = vault_keeps.keep_id
+    INNER JOIN accounts ON accounts.id = vault_keeps.creator_id
+WHERE
+    vault_id = 12;

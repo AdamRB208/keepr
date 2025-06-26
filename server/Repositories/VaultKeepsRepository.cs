@@ -22,4 +22,29 @@ public class VaultKeepsRepository
 
     return vaultKeep;
   }
+
+  internal List<Keep> GetKeepsInPublicVault(int vaultId)
+  {
+    string sql = @"
+      SELECT  *,
+      vault_keeps.id as VaultKeepId
+FROM
+    vault_keeps
+    INNER JOIN keeps ON keeps.id = vault_keeps.keep_id
+    INNER JOIN accounts ON accounts.id = vault_keeps.creator_id
+WHERE
+    vault_id = @VaultId;";
+
+    List<Keep> keeps = _db.Query(sql, (VaultKeep vaultKeep, Keep keeps, Account account) =>
+    {
+      keeps.Id = vaultKeep.KeepId;
+      account.Id = vaultKeep.CreatorId;
+      keeps.Creator = account;
+      keeps.VaultKeepId = vaultKeep.Id;
+      return keeps;
+    }, new { vaultId }).ToList();
+    return keeps;
+  }
+
+  // TODO add the delete 
 }

@@ -6,7 +6,10 @@ import { AppState } from "@/AppState.js"
 class KeepService {
 
   setActiveKeep(activeKeep) {
+    // TODO fire off request to get keep by id
+
     AppState.activeKeep = activeKeep
+
     logger.log('activeKeep', activeKeep)
 
   }

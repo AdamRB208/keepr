@@ -6,7 +6,7 @@ public class VaultKeep : RepoItem<int>
 
 
   // could be populated but not always required 
-  public Keep Keep { get; set; }
-  public Vault Vault { get; set; }
-  public Account Account { get; set; }
+  // public Keep Keep { get; set; }
+  // public Vault Vault { get; set; }
+  // public Account Account { get; set; }
 }

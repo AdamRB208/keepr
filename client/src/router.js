@@ -23,14 +23,16 @@ const routes = [
     beforeEnter: authGuard
   },
   {
-    path: '/profiles',
+    path: '/profiles/:profileId',
     name: 'Profile',
-    component: loadPage('ProfilePage')
+    component: loadPage('ProfilePage'),
+    // FIXME make sure the user's auth is resolved before loading the route
   },
   {
-    path: '/vaults',
+    path: '/vaults/:vaultId',
     name: 'Vault',
-    component: loadPage('VaultPage')
+    component: loadPage('VaultPage'),
+    // FIXME make sure the user's auth is resolved before loading the route
   },
 ]
 

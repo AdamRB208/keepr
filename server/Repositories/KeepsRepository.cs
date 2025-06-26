@@ -56,7 +56,7 @@ public class KeepsRepository
   internal void UpdateKeep(Keep keep)
   {
     string sql = @"
-    UPDATE keeps SET name = @Name, description = @Description, img = @Img WHERE id = @Id LIMIT 1;";
+    UPDATE keeps SET name = @Name, description = @Description, img = @Img, views=@Views WHERE id = @Id LIMIT 1;";
 
     int rowsAffected = _db.Execute(sql, keep);
 
@@ -77,5 +77,6 @@ public class KeepsRepository
     if (rowsAffected == 0) throw new Exception("Delete was unsuccessful");
     if (rowsAffected > 1) throw new Exception("Delete was too successful");
   }
+
 
 }
