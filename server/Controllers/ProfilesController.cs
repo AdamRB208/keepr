@@ -47,10 +47,21 @@ public class ProfilesController : ControllerBase
     }
   }
 
-  // TODO get profile keeps
-  // TODO get profile vaults
+  [HttpGet("{profileId}/vaults")]
+  public async Task<ActionResult<List<Vault>>> GetUsersVaults(string profileId)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
 
-
+      List<Vault> vaults = _profilesService.GetUsersVaults(profileId, userInfo);
+      return Ok(vaults);
+    }
+    catch (Exception error)
+    {
+      return BadRequest(error.Message);
+    }
+  }
 
 
 

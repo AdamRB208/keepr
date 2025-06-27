@@ -27,7 +27,7 @@ SELECT keeps.*, accounts.*
 FROM keeps
     INNER JOIN accounts on accounts.id = keeps.creator_id
 WHERE
-    keeps.creator_id = '67e592b83f3192a0a5480d98';
+keeps.creator_id = @CreatorId;
 SELECT keeps.*, accounts.*
 FROM keeps
     INNER JOIN accounts ON keeps.creator_id = accounts.id
@@ -140,6 +140,11 @@ LIMIT 1;
 
 DELETE FROM vaults WHERE vaults.id = @VaultId;
 
+SELECT vaults.*, accounts.*
+FROM vaults
+    INNER JOIN accounts on accounts.id = vaults.creator_id
+WHERE
+    vaults.creator_id = @CreatorId;
 CREATE TABLE vault_keeps (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,

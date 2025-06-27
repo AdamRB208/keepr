@@ -1,5 +1,6 @@
 
 
+
 public class VaultsRepository
 {
   private readonly IDbConnection _db;
@@ -65,5 +66,23 @@ public class VaultsRepository
     int rowsAffected = _db.Execute(sql, new { vaultId });
     if (rowsAffected == 0) throw new Exception("Delete was unsuccessful");
     if (rowsAffected > 1) throw new Exception("Delete was too successful");
+  }
+
+  internal List<Vault> GetVaultsByCreatorId(string creatorId)
+  {
+    string sql = @"
+    SELECT vaults.*, accounts.*
+FROM vaults
+    INNER JOIN accounts on accounts.id = vaults.creator_id
+WHERE
+    vaults.creator_id = @CreatorId;
+    ";
+
+    List<Vault> vaults = _db.Query(sql, (Vault vault, Account account) =>
+    {
+      vault.CreatorId = account.Id;
+      return vault;
+    }, new { creatorId }).ToList();
+    return vaults;
   }
 }

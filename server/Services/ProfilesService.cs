@@ -6,10 +6,13 @@ public class ProfilesService
 
   private readonly KeepsService _keepsService;
 
-  public ProfilesService(ProfilesRepository profilesRepository, KeepsService keepsService)
+  private readonly VaultsService _vaultsService;
+
+  public ProfilesService(ProfilesRepository profilesRepository, KeepsService keepsService, VaultsService vaultsService)
   {
     _profilesRepository = profilesRepository;
     _keepsService = keepsService;
+    _vaultsService = vaultsService;
   }
 
   internal Profile GetProfileById(string profileId)
@@ -28,5 +31,13 @@ public class ProfilesService
 
     List<Keep> foundKeeps = _profilesRepository.GetUsersKeeps(profileId);
     return foundKeeps;
+  }
+
+  internal List<Vault> GetUsersVaults(string profileId, Account userInfo)
+  {
+    List<Vault> vaults = _vaultsService.GetVaultsByCreatorId(userInfo.Id);
+
+    List<Vault> foundVaults = _profilesRepository.GetUsersVaults(profileId);
+    return foundVaults;
   }
 }

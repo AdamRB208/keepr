@@ -51,4 +51,11 @@ public class VaultsService
     _vaultsRepository.DeleteVault(vaultId);
     return $"Deleted vault {vault.Name}!";
   }
+
+  internal List<Vault> GetVaultsByCreatorId(string CreatorId)
+  {
+    List<Vault> vaults = _vaultsRepository.GetVaultsByCreatorId(CreatorId);
+    return vaults;
+  }
+
 }

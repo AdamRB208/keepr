@@ -85,7 +85,7 @@ public class KeepsRepository
 FROM keeps
     INNER JOIN accounts on accounts.id = keeps.creator_id
 WHERE
-    keeps.creator_id = '67e592b83f3192a0a5480d98';
+    keeps.creator_id = @CreatorId;
     ";
 
     List<Keep> keeps = _db.Query(sql, (Keep keep, Account account) =>

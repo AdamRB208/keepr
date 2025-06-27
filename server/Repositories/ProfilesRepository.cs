@@ -1,6 +1,7 @@
 
 
 
+
 public class ProfilesRepository
 {
   private readonly IDbConnection _db;
@@ -34,5 +35,22 @@ WHERE
     }, new { profileId }).ToList();
     return keeps;
 
+  }
+
+  internal List<Vault> GetUsersVaults(string profileId)
+  {
+    string sql = @"
+    SELECT vaults.*, accounts.*
+FROM vaults
+    INNER JOIN accounts on accounts.id = vaults.creator_id
+WHERE
+    vaults.creator_id = @ProfileId;";
+
+    List<Vault> vaults = _db.Query(sql, (Vault vault, Account account) =>
+    {
+      vault.CreatorId = account.Id;
+      return vault;
+    }, new { profileId }).ToList();
+    return vaults;
   }
 }
