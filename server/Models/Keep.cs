@@ -15,9 +15,3 @@ public class Keep
   public string CreatorId { get; set; }
   public Account Creator { get; set; }
 }
-
-public class SavedKeep : Keep
-{
-  public int VaultKeepId { get; set; }
-
-}

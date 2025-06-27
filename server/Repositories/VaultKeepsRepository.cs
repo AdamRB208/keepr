@@ -1,4 +1,5 @@
 
+
 public class VaultKeepsRepository
 {
   private readonly IDbConnection _db;
@@ -22,6 +23,7 @@ public class VaultKeepsRepository
 
     return vaultKeep;
   }
+
 
   internal List<Keep> GetKeepsInPublicVault(int vaultId)
   {
@@ -47,4 +49,13 @@ WHERE
   }
 
   // TODO add the delete 
+  internal void DeleteVaultKeep(int vaultKeepId)
+  {
+    string sql = @" 
+    DELETE FROM vault_keeps WHERE vault_keeps.id = @VaultKeepId;";
+
+    int rowsAffected = _db.Execute(sql, new { vaultKeepId });
+    if (rowsAffected == 0) throw new Exception("Delete was unsuccessful!");
+    if (rowsAffected > 1) throw new Exception("Delete was too successful!");
+  }
 }

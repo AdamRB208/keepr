@@ -191,3 +191,5 @@ FROM
     INNER JOIN accounts ON accounts.id = vault_keeps.creator_id
 WHERE
     vault_id = 12;
+
+DELETE FROM vault_keeps WHERE vault_keeps.keep_id = @VaultKeepId;
