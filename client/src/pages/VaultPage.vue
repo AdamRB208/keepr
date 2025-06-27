@@ -14,6 +14,8 @@ onMounted(() => {
   getVaultById()
 })
 
+
+
 async function getVaultById() {
   try {
     const vaultId = route.params.vaultId
@@ -30,7 +32,7 @@ async function getVaultById() {
 <template>
   <section class="container">
     <div class="row">
-      <div class="col-12">
+      <div class="col-md-10 masonry-container">
         {{ vault }}
       </div>
     </div>
