@@ -48,7 +48,6 @@ WHERE
     return keeps;
   }
 
-  // TODO add the delete 
   internal void DeleteVaultKeep(int vaultKeepId)
   {
     string sql = @" 
