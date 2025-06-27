@@ -15,8 +15,19 @@ public class ProfilesController : ControllerBase
     _auth0Provider = auth0Provider;
   }
 
-
-
+  [HttpGet("{profileId}")]
+  public ActionResult<Profile> GetProfileById(int profileId)
+  {
+    try
+    {
+      Profile profile = _profilesService.GetProfileById(profileId);
+      return Ok(profile);
+    }
+    catch (Exception error)
+    {
+      return BadRequest(error.Message);
+    }
+  }
   // TODO get profile by id
   // TODO get profile keeps
   // TODO get profile vaults

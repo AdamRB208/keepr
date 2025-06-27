@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS accounts (
     cover_img VARCHAR(1000)
 ) default charset utf8mb4 COMMENT '';
 
+SELECT accounts.id FROM accounts WHERE id = @profileId;
 ALTER table accounts ADD COLUMN cover_img VARCHAR(1000);
 
 CREATE TABLE keeps (

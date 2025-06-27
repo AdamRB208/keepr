@@ -1,3 +1,4 @@
+
 public class ProfilesRepository
 {
   private readonly IDbConnection _db;
@@ -7,5 +8,12 @@ public class ProfilesRepository
     _db = db;
   }
 
+  internal Profile GetProfileById(int profileId)
+  {
+    string sql = @"
+    SELECT * FROM accounts WHERE id = @ProfileId;";
+
+    return _db.QueryFirstOrDefault<Profile>(sql, new { profileId });
+  }
 
 }
