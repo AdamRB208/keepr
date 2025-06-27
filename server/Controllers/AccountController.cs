@@ -28,6 +28,21 @@ public class AccountController : ControllerBase
     }
   }
 
+  [HttpGet("vaults")]
+  public async Task<ActionResult<List<Vault>>> GetMyVaults()
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+
+      List<Vault> vaults = _accountService.GetMyVaults(userInfo);
+      return Ok(vaults);
+    }
+    catch (Exception error)
+    {
+      return BadRequest(error.Message);
+    }
+  }
 
   // TODO add the edit route
 
