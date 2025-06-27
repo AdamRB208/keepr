@@ -23,8 +23,8 @@ const activeKeep = computed(() => AppState.activeKeep)
                 </div>
                 <div class="col-md-6 d-flex justify-content-between flex-column">
                   <div class="d-flex justify-content-center mb-5">
-                    <i class="mdi mdi-eye-outline me-5"> {{ activeKeep.views }}</i>
-                    <i class="mdi mdi-account-check ms-5"> {{ activeKeep.kept }}</i>
+                    <i class="mdi mdi-eye-outline me-5" title="Views"> {{ activeKeep.views }}</i>
+                    <i class="mdi mdi-account-check ms-5" title="Vault Count"> {{ activeKeep.kept }}</i>
                   </div>
                   <div class="text-center">
                     <h2>{{ activeKeep.name }}</h2>
