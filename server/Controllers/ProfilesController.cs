@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http.HttpResults;
+
 namespace keepr.Controllers;
 
 [ApiController]
@@ -9,6 +11,7 @@ public class ProfilesController : ControllerBase
 
   private readonly Auth0Provider _auth0Provider;
 
+
   public ProfilesController(ProfilesService profilesService, Auth0Provider auth0Provider)
   {
     _profilesService = profilesService;
@@ -16,7 +19,7 @@ public class ProfilesController : ControllerBase
   }
 
   [HttpGet("{profileId}")]
-  public ActionResult<Profile> GetProfileById(int profileId)
+  public ActionResult<Profile> GetProfileById(string profileId)
   {
     try
     {
@@ -28,7 +31,22 @@ public class ProfilesController : ControllerBase
       return BadRequest(error.Message);
     }
   }
-  // TODO get profile by id
+
+  [HttpGet("{profileId}/keeps")]
+  public async Task<ActionResult<List<Keep>>> GetUsersKeeps(string profileId)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      List<Keep> keeps = _profilesService.GetUsersKeeps(profileId, userInfo);
+      return Ok(keeps);
+    }
+    catch (Exception error)
+    {
+      return BadRequest(error.Message);
+    }
+  }
+
   // TODO get profile keeps
   // TODO get profile vaults
 

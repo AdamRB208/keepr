@@ -1,4 +1,6 @@
 
+
+
 public class ProfilesRepository
 {
   private readonly IDbConnection _db;
@@ -8,7 +10,7 @@ public class ProfilesRepository
     _db = db;
   }
 
-  internal Profile GetProfileById(int profileId)
+  internal Profile GetProfileById(string profileId)
   {
     string sql = @"
     SELECT * FROM accounts WHERE id = @ProfileId;";
@@ -16,4 +18,21 @@ public class ProfilesRepository
     return _db.QueryFirstOrDefault<Profile>(sql, new { profileId });
   }
 
+  internal List<Keep> GetUsersKeeps(string profileId)
+  {
+    string sql = @"
+    SELECT keeps.*, accounts.*
+FROM keeps
+    INNER JOIN accounts on accounts.id = keeps.creator_id
+WHERE
+    keeps.creator_id = @ProfileId;";
+
+    List<Keep> keeps = _db.Query(sql, (Keep keep, Account account) =>
+    {
+      keep.CreatorId = account.Id;
+      return keep;
+    }, new { profileId }).ToList();
+    return keeps;
+
+  }
 }

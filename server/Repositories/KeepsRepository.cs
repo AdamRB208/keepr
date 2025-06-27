@@ -78,4 +78,21 @@ public class KeepsRepository
     if (rowsAffected > 1) throw new Exception("Delete was too successful");
   }
 
+  internal List<Keep> GetKeepsByCreatorId(string creatorId)
+  {
+    string sql = @"
+    SELECT keeps.*, accounts.*
+FROM keeps
+    INNER JOIN accounts on accounts.id = keeps.creator_id
+WHERE
+    keeps.creator_id = '67e592b83f3192a0a5480d98';
+    ";
+
+    List<Keep> keeps = _db.Query(sql, (Keep keep, Account account) =>
+    {
+      keep.CreatorId = account.Id;
+      return keep;
+    }, new { creatorId }).ToList();
+    return keeps;
+  }
 }

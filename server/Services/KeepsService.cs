@@ -62,4 +62,9 @@ public class KeepsService
     return $"Deleted keep {keep.Name}!";
   }
 
+  internal List<Keep> GetKeepsByCreatorId(string CreatorId)
+  {
+    List<Keep> keeps = _keepsRepository.GetKeepsByCreatorId(CreatorId);
+    return keeps;
+  }
 }

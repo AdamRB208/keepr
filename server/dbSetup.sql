@@ -25,6 +25,11 @@ CREATE TABLE keeps (
 
 SELECT keeps.*, accounts.*
 FROM keeps
+    INNER JOIN accounts on accounts.id = keeps.creator_id
+WHERE
+    keeps.creator_id = '67e592b83f3192a0a5480d98';
+SELECT keeps.*, accounts.*
+FROM keeps
     INNER JOIN accounts ON keeps.creator_id = accounts.id
 WHERE
     keeps.id = LAST_INSERT_ID();
