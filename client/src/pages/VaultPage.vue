@@ -37,17 +37,19 @@ async function getVaultById() {
 <template>
   <section v-if="account" class="container-fluid">
     <div class="row justify-content-center">
-      <div class="col-md-10 d-flex justify-content-center">
+      <div class="col-md-6 d-flex justify-content-center">
         <div v-if="vault && vault.id" class="Card-Img">
           <img :src="vault.img" :alt="`image of ${vault.name}`" class="Vault-Img">
-        </div>
-        <div class="Card-Text">
-          <span>{{ vault.name }}</span>
+          <div class="Card-Text">
+            <p class="fs-1 w-100 text-center">{{ vault.name }}</p>
+            <p class="w-100 text-center">By {{ vault.creator.name }}</p>
+            <div></div>
+          </div>
         </div>
       </div>
-      <div class="col-md-10 masonry-container">
-        <div>
-          <h2>Vaults</h2>
+      <div class="col-md-10 masonry-container mt-3">
+        <div class="d-flex justify-content-center">
+          <h2>Vault Keeps</h2>
         </div>
       </div>
     </div>
@@ -76,12 +78,13 @@ async function getVaultById() {
   bottom: 0;
   color: white;
   font-weight: 500;
-  display: flex;
+  display: column;
   justify-content: space-between;
   width: 100%;
   text-shadow: 0 0 3px #242222;
   background: linear-gradient(0deg, #1716167b 20%, transparent);
   border-radius: 0 0 25px 25px;
   padding: 5px;
+  justify-content: center;
 }
 </style>
