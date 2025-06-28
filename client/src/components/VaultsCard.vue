@@ -2,18 +2,33 @@
 import { Vault } from '@/models/Vault.js';
 
 
+
 defineProps({
   vaults: { type: Vault, required: true }
 })
+
+// async function getVaultById(vaultId) {
+//   try {
+//     AppState.activeVault.id = vaultId
+//     vaultId = route.params.vaultId
+//     logger.log('vaultId', vaultId)
+//     await vaultService.getVaultById(vaultId)
+//   }
+//   catch (error) {
+//     Pop.error(error, 'COULD NOT GET VAULT BY ID!');
+//     logger.log('Could not get vault by id!', error)
+//   }
+// }
+
+
 </script>
 
 
 <template>
-  <div class="Vault-Card m-1 mb-3 col-md-3">
+  <div v-if="vaults" class="Vault-Card m-1 mb-3 col-md-3">
     <div class="Card-Img">
       <RouterLink :to="{ name: 'Vault', params: { vaultId: vaults.id } }">
-        <img :src="vaults.img" :alt="`image of ${vaults.name}`" class="Vault-Img" type="button" data-bs-toggle="modal"
-          data-bs-target="#vaultsModal">
+        <img :src="vaults.img" :alt="`image of ${vaults.name}`" class="Vault-Img" type="button">
       </RouterLink>
       <div class="Card-Text">
         <span class="m-2 w-100">{{ vaults.name }}</span>
