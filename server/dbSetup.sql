@@ -204,3 +204,10 @@ WHERE
     vault_id = 12;
 
 DELETE FROM vault_keeps WHERE vault_keeps.keep_id = @VaultKeepId;
+UPDATE accounts
+SET
+    name = @Name,
+    picture = @Picture,
+    cover_img = @CoverImg
+WHERE
+    id = @Id;

@@ -44,6 +44,15 @@ public class AccountController : ControllerBase
     }
   }
 
+  [Authorize]
+  [HttpPut]
+  public async Task<ActionResult<Account>> EditAccount([FromBody] Account editData)
+  {
+    Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+    Account updatedAccount = _accountService.Edit(editData, userInfo.Id);
+    return Ok(updatedAccount);
+  }
+
   // TODO add the edit route
 
 }

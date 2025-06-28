@@ -37,10 +37,12 @@ public class AccountsRepository
   {
     string sql = @"
             UPDATE accounts
-            SET 
-              name = @Name,
-              picture = @Picture
-            WHERE id = @Id;";
+SET
+    name = @Name,
+    picture = @Picture, 
+    cover_img = @CoverImg
+WHERE
+    id = @Id;";
     _db.Execute(sql, update);
     return update;
   }
