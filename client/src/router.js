@@ -32,6 +32,7 @@ const routes = [
     path: '/vaults/:vaultId',
     name: 'Vault',
     component: loadPage('VaultPage'),
+    beforeEnter: authGuard
     // FIXME make sure the user's auth is resolved before loading the route
   },
 ]

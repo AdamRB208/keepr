@@ -9,15 +9,17 @@ defineProps({
 
 
 <template>
-<div class="Vault-Card m-1 mb-3 col-md-3">
-          <div class="Card-Img">
-            <img :src="vaults.img" :alt="`image of ${vaults.name}`" class="Vault-Img" type="button"
-              data-bs-toggle="modal" data-bs-target="#keepModal">
-            <div class="Card-Text">
-              <span class="m-2 w-100">{{ vaults.name }}</span>
-            </div>
-          </div>
-        </div>
+  <div class="Vault-Card m-1 mb-3 col-md-3">
+    <div class="Card-Img">
+      <RouterLink :to="{ name: 'Vault', params: { vaultId: vaults.id } }">
+        <img :src="vaults.img" :alt="`image of ${vaults.name}`" class="Vault-Img" type="button" data-bs-toggle="modal"
+          data-bs-target="#vaultsModal">
+      </RouterLink>
+      <div class="Card-Text">
+        <span class="m-2 w-100">{{ vaults.name }}</span>
+      </div>
+    </div>
+  </div>
 </template>
 
 
