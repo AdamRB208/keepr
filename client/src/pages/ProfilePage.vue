@@ -13,7 +13,6 @@ const profile = computed(() => AppState.account)
 const vaults = computed(() => AppState.accountVaults)
 
 
-
 const route = useRoute()
 const router = useRouter()
 
@@ -24,7 +23,6 @@ onMounted(() => {
 // HINT use the route.params
 
 // TODO on mounted get the keeps by the profileId
-// TODO on mounted get the vaults by the profileId
 
 async function getProfileById() {
   try {

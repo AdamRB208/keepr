@@ -53,6 +53,4 @@ public class AccountController : ControllerBase
     return Ok(updatedAccount);
   }
 
-  // TODO add the edit route
-
 }
