@@ -11,6 +11,7 @@ class ProfileService {
     AppState.account = new Account(response.data)
   }
 
+
 }
 
 export const profilesService = new ProfileService();
