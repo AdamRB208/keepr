@@ -11,8 +11,6 @@ const route = useRoute()
 
 const account = computed(() => AppState.account)
 
-// const keep = computed(() => AppState.keeps)
-
 defineProps({
   keeps: { type: Keep, required: true }
 })

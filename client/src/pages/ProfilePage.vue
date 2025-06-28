@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import VaultsCard from '@/components/VaultsCard.vue';
 import { profilesService } from '@/services/ProfileService.js';
 import { vaultService } from '@/services/VaultService.js';
 import { logger } from '@/utils/Logger.js';
@@ -11,6 +12,8 @@ const profile = computed(() => AppState.account)
 
 const vaults = computed(() => AppState.accountVaults)
 
+
+
 const route = useRoute()
 const router = useRouter()
 
@@ -20,7 +23,6 @@ onMounted(() => {
 })
 // HINT use the route.params
 
-// TODO on mounted get the profile by its profileId
 // TODO on mounted get the keeps by the profileId
 // TODO on mounted get the vaults by the profileId
 
@@ -52,7 +54,7 @@ async function getVaultsByProfileId() {
 
 
 <template>
-  <section class="container flex-column">
+  <section class="container">
     <div class="row justify-content-center">
       <div class="col-md-10 d-flex w-100 flex-column">
         <div>
@@ -62,7 +64,7 @@ async function getVaultsByProfileId() {
           <img :src="profile.picture" :alt="`profile picture for ${profile.name}`" class="profile-img">
         </div>
         <div class="d-flex justify-content-center">
-          <h2>{{ profile.name }}</h2>
+          <h1>{{ profile.name }}</h1>
         </div>
         <div class="d-flex justify-content-center">
           <small class="me-1">Vaults</small>
@@ -72,17 +74,21 @@ async function getVaultsByProfileId() {
     </div>
   </section>
   <section class="container">
-    <div class="row justify-content-center">
+    <div class="row">
       <div class="col-md-10">
-        <div>
-          {{ vaults }}
+        <h2>Vaults</h2>
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-3" v-for="vaults in vaults" :key="vaults.id">
+            <VaultsCard :vaults="vaults" />
+          </div>
         </div>
       </div>
     </div>
   </section>
   <section class="container">
-    <div class="row">
+    <div class="row justify-content-center">
       <div class="col-md-10">
+        <h3>Keeps</h3>
         <div>
           Keeps Here
         </div>
@@ -106,4 +112,11 @@ async function getVaultsByProfileId() {
   max-width: 7rem;
   margin-top: 1.5rem;
 }
+// .vault-cards {
+//   max-width: 30%;
+// }
+
+// .vaults-row {
+//   display: inline-block;
+// }
 </style>
