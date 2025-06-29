@@ -36,6 +36,12 @@ class KeepService {
     keep.splice(index, 1)
   }
 
+  async getKeepsByProfileId(profileId) {
+    const response = await api.get(`api/profiles/${profileId}`)
+    logger.log('Got Keeps!', response.data)
+    AppState.keeps = response.data.map(pojo => new Keep(pojo))
+  }
+
 }
 
 export const keepService = new KeepService()

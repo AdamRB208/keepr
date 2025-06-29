@@ -1,6 +1,8 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import KeepCard from '@/components/KeepCard.vue';
 import VaultsCard from '@/components/VaultsCard.vue';
+import { keepService } from '@/services/KeepService.js';
 import { profilesService } from '@/services/ProfileService.js';
 import { vaultService } from '@/services/VaultService.js';
 import { logger } from '@/utils/Logger.js';
@@ -12,6 +14,8 @@ const profile = computed(() => AppState.account)
 
 const vaults = computed(() => AppState.accountVaults)
 
+const keeps = computed(() => AppState.keeps)
+
 
 const route = useRoute()
 const router = useRouter()
@@ -19,6 +23,7 @@ const router = useRouter()
 onMounted(() => {
   getProfileById()
   getVaultsByProfileId()
+  getKeepsByProfileId()
 })
 // HINT use the route.params
 
@@ -42,6 +47,16 @@ async function getVaultsByProfileId() {
   catch (error) {
     Pop.error(error, 'COULD NOT GET VAULTS!');
     logger.error('Could not get vaults!', error)
+  }
+}
+
+async function getKeepsByProfileId() {
+  try {
+    await keepService.getKeepsByProfileId(route.params.profileId)
+  }
+  catch (error) {
+    Pop.error(error, 'COULD NOT GET KEEPS BY PROFILE ID');
+    logger.log('Could not get keeps by profile Id')
   }
 }
 
@@ -70,11 +85,14 @@ async function getVaultsByProfileId() {
       </div>
     </div>
   </section>
+
   <!-- TODO fix overlap issue with cards -->
+
   <section class="container">
     <div class="row">
       <div class="col-md-10 w-100">
         <div class="row w-100">
+          <h1 class="ms-5">Vaults</h1>
           <div class="col-md-3 mt-4 d-flex justify-content-center" v-for="vaults in vaults" :key="vaults.id">
             <VaultsCard :vaults="vaults" class="vault-cards" />
           </div>
@@ -82,12 +100,17 @@ async function getVaultsByProfileId() {
       </div>
     </div>
   </section>
+
+  <!-- TODO create new card for keeps, still needs masonry!!! -->
+
   <section class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-10">
-        <h3>Keeps</h3>
-        <div>
-          Keeps Here
+    <div class="row">
+      <div class="col-md-10 w-100">
+        <div class="row w-100">
+          <h2 class="ms-5">Keeps</h2>
+          <div class="col-md-3 d-flex justify-content-center masonry-container" v-for="keeps in keeps" :key="keeps.id">
+            <KeepCard :keeps="keeps" />
+          </div>
         </div>
       </div>
     </div>
@@ -113,7 +136,12 @@ async function getVaultsByProfileId() {
   width: 100%;
 }
 
-// .vaults-row {
-//   display: inline-block;
-// }
+.masonry-container {
+  columns: 200px;
+}
+
+.masonry-container>* {
+  display: inline-block;
+  break-inside: avoid;
+}
 </style>
