@@ -1,6 +1,7 @@
 <script setup>
 logger.log('Vault Page Mounted')
 import { AppState } from '@/AppState.js';
+import { vaultKeepService } from '@/services/VaultKeepService.js';
 import { vaultService } from '@/services/VaultService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
@@ -12,11 +13,12 @@ const router = useRouter()
 
 const account = computed(() => AppState.account)
 const vault = computed(() => AppState.activeVault)
+const vaultKeeps = computed(() => AppState.vaultKeeps)
 
 
 onMounted(() => {
   getVaultById()
-  logger.log('running get vault by id')
+  getPublicVaultKeeps()
 })
 
 
@@ -31,6 +33,18 @@ async function getVaultById() {
     logger.log('Could not get vault by id!', error)
   }
 }
+
+async function getPublicVaultKeeps() {
+  try {
+    await vaultKeepService.getPublicVaultKeeps(route.params.vaultId)
+  }
+  catch (error) {
+    Pop.error(error, 'COULD NOT GET VAULTKEEPS!');
+    logger.log('Could not get VaultKeeps!', error)
+    router.push({ name: 'Vault' })
+  }
+}
+
 </script>
 
 
@@ -48,8 +62,9 @@ async function getVaultById() {
         </div>
       </div>
       <div class="col-md-10 masonry-container mt-3">
-        <div class="d-flex justify-content-center">
+        <div v-if="vaultKeeps" class="d-flex justify-content-center">
           <h2>Vault Keeps</h2>
+          <div>{{ vaultKeeps }}</div>
         </div>
       </div>
     </div>

@@ -7,19 +7,6 @@ defineProps({
   vaults: { type: Vault, required: true }
 })
 
-// async function getVaultById(vaultId) {
-//   try {
-//     AppState.activeVault.id = vaultId
-//     vaultId = route.params.vaultId
-//     logger.log('vaultId', vaultId)
-//     await vaultService.getVaultById(vaultId)
-//   }
-//   catch (error) {
-//     Pop.error(error, 'COULD NOT GET VAULT BY ID!');
-//     logger.log('Could not get vault by id!', error)
-//   }
-// }
-
 
 </script>
 
