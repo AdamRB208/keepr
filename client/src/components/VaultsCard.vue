@@ -9,7 +9,7 @@ defineProps({
 
 </script>
 
-
+<!-- TODO fix issue with card display -->
 <template>
   <div v-if="vaults" class="Vault-Card m-1 mb-3 col-md-3">
     <div class="Card-Img">

@@ -31,37 +31,30 @@ async function createKeep() {
 }
 
 </script>
-
-<!-- TODO Make sure to style this Modal better!!! -->
-
 <template>
   <div v-if="account" class="modal" tabindex="-1" id="createKeepModal" aria-labelledby="createKeepModalLabel">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="createKeepModalLabel">Add your keep</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
         <div class="modal-body">
+          <h5 class="modal-title" id="createKeepModalLabel">Add your keep</h5>
           <form @submit.prevent="createKeep()">
             <div class="mb-3">
-              <label for="keepName" class="form-label">Name</label>
+              <label for="keepName" class="form-label"></label>
               <input v-model="editableKeepData.name" type="text" class="form-control" id="keepName"
                 placeholder="Name..." minlength="1" maxlength="255" required>
             </div>
             <div class="mb-3">
-              <label for="keepDescription" class="form-label">Description</label>
+              <label for="keepDescription" class="form-label"></label>
               <textarea v-model="editableKeepData.description" class="form-control" id="keepDescription" rows="3"
                 type="text" placeholder="Keep Description..." maxlength="1000" required></textarea>
               <div class="mb-3">
-                <label for="keepImg" class="form-label">Image URL</label>
+                <label for="keepImg" class="form-label"></label>
                 <input v-model="editableKeepData.img" type="url" class="form-control" id="keepImg"
                   placeholder="Image URL..." maxlength="1000" required>
               </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-dark">Create</button>
+              </div>
             </div>
           </form>
         </div>

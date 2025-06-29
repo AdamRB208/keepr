@@ -47,7 +47,6 @@ async function getVaultsByProfileId() {
 
 
 
-
 </script>
 
 
