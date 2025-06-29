@@ -18,6 +18,12 @@ class VaultService {
     AppState.accountVaults = response.data.map(pojo => new Vault(pojo))
   }
 
+  async createVault(vaultData) {
+    const response = await api.post('api/vaults', vaultData)
+    logger.log('Created Vault!', response.data)
+    const vault = new Vault(response.data)
+    return vault
+  }
 }
 
 export const vaultService = new VaultService()

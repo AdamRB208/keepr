@@ -1,5 +1,6 @@
 <script setup>
 import CreateKeepModal from './CreateKeepModal.vue';
+import CreateVaultModal from './CreateVaultModal.vue';
 
 
 </script>
@@ -13,9 +14,11 @@ import CreateKeepModal from './CreateKeepModal.vue';
     <ul class="dropdown-menu">
       <li><button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#createKeepModal">Create
           Keepr</button></li>
-      <li><a class="dropdown-item" href="#">Create Vault</a></li>
+      <li><button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#createVaultModal">Create
+          Vault</button></li>
     </ul>
     <CreateKeepModal />
+    <CreateVaultModal />
 
     <!-- TODO createVault -->
   </div>
