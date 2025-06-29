@@ -6,5 +6,7 @@ export class VaultKeep {
     this.keepId = data.keepId
     this.vaultId = data.vaultId
     this.creatorId = data.creatorId
+    this.img = data.img
+    this.name = data.name
   }
 }

@@ -1,23 +1,21 @@
 <script setup>
-import { Vault } from '@/models/Vault.js';
+import { Keep } from '@/models/Keep.js';
+import { VaultKeep } from '@/models/VaultKeep.js';
 
 
 defineProps({
-  vaults: { type: Vault, required: true }
+  vaultKeeps: {type: VaultKeep, required: true},
+  keeps: {type: Keep, required: true}
 })
-
-
 </script>
 
 
 <template>
-  <div v-if="vaults" class="Vault-Card m-1 mb-3 col-md-3">
+  <div v-if="vaultKeeps" class="VaultKeep-Card m-1 mb-3 col-md-3">
     <div class="Card-Img">
-      <RouterLink :to="{ name: 'Vault', params: { vaultId: vaults.id } }">
-        <img :src="vaults.img" :alt="`image of ${vaults.name}`" class="Vault-Img" type="button">
-      </RouterLink>
+        <img :src="vaultKeeps.img" :alt="`image of ${vaultKeeps.name}`" class="VaultKeep-Img" type="button">
       <div class="Card-Text">
-        <span class="m-2 w-100">{{ vaults.name }}</span>
+        <span class="m-2 w-100">{{ vaultKeeps.name }}</span>
       </div>
     </div>
   </div>
@@ -38,7 +36,7 @@ defineProps({
   border-radius: 0 0 25px 25px;
   padding: 5px;
 }
-.Vault-Img {
+.VaultKeep-Img {
   object-fit: cover;
   width: 200px;
   height: 200px;
@@ -53,7 +51,7 @@ defineProps({
   min-width: 100%;
 }
 
-.Vault-Card {
+.VaultKeep-Card {
   max-width: 33%;
 }
 </style>

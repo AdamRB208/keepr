@@ -71,13 +71,13 @@ async function getVaultsByProfileId() {
       </div>
     </div>
   </section>
+  <!-- TODO fix overlap issue with cards -->
   <section class="container">
     <div class="row">
-      <div class="col-md-10">
-        <h2>Vaults</h2>
-        <div class="row d-flex justify-content-center">
-          <div class="col-md-3" v-for="vaults in vaults" :key="vaults.id">
-            <VaultsCard :vaults="vaults" />
+      <div class="col-md-10 w-100">
+        <div class="row w-100">
+          <div class="col-md-3 mt-4 d-flex justify-content-center" v-for="vaults in vaults" :key="vaults.id">
+            <VaultsCard :vaults="vaults" class="vault-cards" />
           </div>
         </div>
       </div>
@@ -110,9 +110,9 @@ async function getVaultsByProfileId() {
   max-width: 7rem;
   margin-top: 1.5rem;
 }
-// .vault-cards {
-//   max-width: 30%;
-// }
+.vault-cards {
+  width: 100%;
+}
 
 // .vaults-row {
 //   display: inline-block;

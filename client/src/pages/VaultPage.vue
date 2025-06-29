@@ -1,6 +1,7 @@
 <script setup>
 logger.log('Vault Page Mounted')
 import { AppState } from '@/AppState.js';
+import VaultKeepsCard from '@/components/VaultKeepsCard.vue';
 import { vaultKeepService } from '@/services/VaultKeepService.js';
 import { vaultService } from '@/services/VaultService.js';
 import { logger } from '@/utils/Logger.js';
@@ -14,6 +15,7 @@ const router = useRouter()
 const account = computed(() => AppState.account)
 const vault = computed(() => AppState.activeVault)
 const vaultKeeps = computed(() => AppState.vaultKeeps)
+const keeps = computed(() => AppState.keeps)
 
 
 onMounted(() => {
@@ -61,10 +63,22 @@ async function getPublicVaultKeeps() {
           </div>
         </div>
       </div>
-      <div class="col-md-10 masonry-container mt-3">
-        <div v-if="vaultKeeps" class="d-flex justify-content-center">
-          <h2>Vault Keeps</h2>
-          <div>{{ vaultKeeps }}</div>
+    </div>
+  </section>
+  <section class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-10 mt-3">
+        <div v-if="vaultKeeps">
+          <div class="d-flex justify-content-center mb-2">
+            <span class="badge text-bg-secondary rounded text-center p-1">{{ vaultKeeps.length }} Keeps</span>
+          </div>
+        </div>
+        <div>
+          <div class="col-md-3 masonry-container">
+            <div v-for="vaultKeeps in vaultKeeps" :key="vaultKeeps.id">
+              <VaultKeepsCard :vaultKeeps="vaultKeeps" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -76,6 +90,7 @@ async function getPublicVaultKeeps() {
 .Card-Img {
   position: relative;
   min-width: 100%;
+  max-height: 300px;
 }
 
 .Vault-Img {
