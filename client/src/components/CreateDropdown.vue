@@ -19,8 +19,6 @@ import CreateVaultModal from './CreateVaultModal.vue';
     </ul>
     <CreateKeepModal />
     <CreateVaultModal />
-
-    <!-- TODO createVault -->
   </div>
 </template>
 
