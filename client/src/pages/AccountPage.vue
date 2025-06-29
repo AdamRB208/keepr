@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { AppState } from '../AppState.js';
+import AccountForm from '@/components/AccountForm.vue';
 
 const account = computed(() => AppState.account)
 
@@ -18,17 +19,17 @@ const account = computed(() => AppState.account)
   </section>
   <section>
     <div class="row justify-content-center">
-      <div class="col-md-10 about text-center border border-3 border-networkgrey rounded-4 mt-2 mb-4 shadow">
+      <div class="col-md-10 about text-center border border-3 rounded-4 mt-2 mb-4 shadow">
         <div v-if="account">
           <div>
             <span>
-              <h1 class="m-3 text-networkgrey">Welcome {{ account.name }}</h1>
+              <h1 class="m-3 text-dark">Welcome {{ account.name }}</h1>
             </span>
             <img :src="account.coverImg" alt="" class="cover-img">
           </div>
           <div class="d-flex flex-row align-items-center justify-content-center account-card">
             <img class="account-img m-5 d-flex justify-content-start" :src="account.picture" alt="">
-            <span class="text-networkgrey">
+            <span class="text-dark">
               <ul>Email: {{ account.email }}</ul>
             </span>
           </div>
@@ -42,7 +43,7 @@ const account = computed(() => AppState.account)
   <section class="container-fluid d-flex justify-content-center">
     <div class="row col-md-8">
       <div v-if="account"
-        class="col-md-6 d-flex justify-content-center border border-3 border-networkgrey rounded-4 mt-4 shadow">
+        class="col-md-6 d-flex justify-content-center border border-3 border-dark rounded-4 mt-4 shadow">
         <AccountForm />
       </div>
       <div v-else>
