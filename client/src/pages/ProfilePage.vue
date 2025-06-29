@@ -25,9 +25,6 @@ onMounted(() => {
   getVaultsByProfileId()
   getKeepsByProfileId()
 })
-// HINT use the route.params
-
-// TODO on mounted get the keeps by the profileId
 
 async function getProfileById() {
   try {
