@@ -6,6 +6,7 @@ export const AppState = reactive({
   identity: null,
   /** @type {import('./models/Account.js').Account} user info from the database*/
   account: null,
+  activeProfile: null,
   /** @type {import('./models/Vault.js').Vault[]} The logged in users vaults only changes on login */
   accountVaults: [],
 

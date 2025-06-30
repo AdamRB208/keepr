@@ -27,14 +27,12 @@ const routes = [
     name: 'Profile',
     component: loadPage('ProfilePage'),
     beforeEnter: authSettled
-    // FIXME make sure the user's auth is resolved before loading the route
   },
   {
     path: '/vaults/:vaultId',
     name: 'Vault',
     component: loadPage('VaultPage'),
     beforeEnter: authSettled
-    // FIXME make sure the user's auth is resolved before loading the route
   },
 ]
 

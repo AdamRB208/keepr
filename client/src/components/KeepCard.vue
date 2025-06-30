@@ -23,7 +23,6 @@ async function setActiveKeep(keep, keepId) {
     keepId = AppState.activeKeep.id
     logger.log('KeepId', keepId)
     await keepService.setActiveKeep(keepId)
-    // AppState.keeps.views++ maybe create new function in service and call in set active keep to increase views.
   }
   catch (error) {
     Pop.error(error, 'COULD NOT SET ACTIVE KEEP!');

@@ -10,13 +10,12 @@ import { Pop } from '@/utils/Pop.js';
 import { computed, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-const profile = computed(() => AppState.account)
+const profile = computed(() => AppState.activeProfile)
 
 const vaults = computed(() => AppState.accountVaults)
 
 const keep = computed(() => AppState.keeps)
 
-const account = computed(() => AppState.account)
 
 
 const route = useRoute()
@@ -65,7 +64,7 @@ async function getKeepsByProfileId() {
 
 
 <template>
-  <section v-if="account && profile" class="container">
+  <section v-if="profile" class="container">
     <div class="row justify-content-center">
       <div class="col-md-10 d-flex w-100 flex-column">
         <div>
