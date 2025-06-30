@@ -19,6 +19,9 @@ const vaultKeep = computed(() => AppState.vaultKeeps)
 
 onMounted(() => {
   getVaultById()
+  // if (vault.value.isPrivate && account.value.id != vault.value.creatorId) {
+  //   router.push({ name: 'Home' })
+  // }
   getPublicVaultKeeps()
 })
 
@@ -28,6 +31,9 @@ async function getVaultById() {
     const vaultId = route.params.vaultId
     logger.log('vaultId', vaultId)
     await vaultService.getVaultById(vaultId)
+    if (vault.value.isPrivate == true && account.value.id != vault.value.creatorId) {
+      router.push({ name: 'Home' })
+    }
   }
   catch (error) {
     Pop.error(error, 'COULD NOT GET VAULT BY ID!');
@@ -47,18 +53,15 @@ async function getPublicVaultKeeps() {
 }
 
 </script>
-
-
 <template>
   <section v-if="account" class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-md-6 d-flex justify-content-center">
-        <div v-if="vault && vault.id" class="Card-Img">
+        <div v-if="vault" class="Card-Img">
           <img :src="vault.img" :alt="`image of ${vault.name}`" class="Vault-Img">
           <div class="Card-Text">
             <p class="fs-1 w-100 text-center">{{ vault.name }}</p>
             <p class="w-100 text-center">By {{ vault.creator.name }}</p>
-            <div></div>
           </div>
         </div>
       </div>
@@ -67,8 +70,8 @@ async function getPublicVaultKeeps() {
   <section class="container">
     <div class="row justify-content-center">
       <div class="col-md-10 mt-3">
-        <div v-if="vaultKeep">
-          <div class="d-flex justify-content-center mb-2">
+        <div>
+          <div v-if="vaultKeep" class=" d-flex justify-content-center mb-2">
             <span class="badge text-bg-secondary rounded text-center p-1">{{ vaultKeep.length }} Keeps</span>
           </div>
         </div>
@@ -115,5 +118,13 @@ async function getPublicVaultKeeps() {
   border-radius: 0 0 25px 25px;
   padding: 5px;
   justify-content: center;
+}
+.masonry-container {
+  columns: 200px;
+}
+
+.masonry-container>* {
+  display: inline-block;
+  break-inside: avoid;
 }
 </style>

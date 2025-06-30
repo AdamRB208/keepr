@@ -25,12 +25,20 @@ public class VaultKeepsService
 
   internal List<Keep> GetKeepsInVault(int vaultId, string userId)
   {
+
     Vault vault = _vaultService.GetVaultById(vaultId);
+    if (vault.IsPrivate is true)
+    {
+      if (vault.CreatorId != userId)
+      {
+        throw new Exception("you cannot access a private vault!");
+      }
+    }
+
 
     // TODO check if the vault is private and who the current user is?
 
-
-
+    // Vault vault = _vaultService.GetVaultById(vaultId);
 
     List<Keep> keeps = _vaultKeepsRepository.GetKeepsInPublicVault(vaultId);
     return keeps;

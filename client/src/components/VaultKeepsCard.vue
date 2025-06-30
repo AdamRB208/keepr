@@ -11,11 +11,11 @@ defineProps({
 
 <!-- TODO fix issue with card display -->
 <template>
-  <div v-if="vaultKeeps" class="VaultKeep-Card m-1 mb-3 col-md-3">
+  <div v-if="vaultKeeps" class="VaultKeep-Card m-1 mb-3">
     <div class="Card-Img">
       <img :src="vaultKeeps.img" :alt="`image of ${vaultKeeps.name}`" class="VaultKeep-Img" type="button">
       <div class="Card-Text">
-        <span class="m-2 w-100">{{ vaultKeeps.name }}</span>
+        <p class="m-2 w-100">{{ vaultKeeps.name }}</p>
       </div>
     </div>
   </div>
@@ -29,8 +29,8 @@ defineProps({
   color: white;
   font-weight: 500;
   display: flex;
-  justify-content: space-between;
-  width: 100%;
+  justify-content: center;
+    width: 200px;
   text-shadow: 0 0 3px #242222;
   background: linear-gradient(0deg, #1716167b 20%, transparent);
   border-radius: 0 0 25px 25px;

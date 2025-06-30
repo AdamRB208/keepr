@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 
 public class Keep
 {
-  public int VaultKeepId { get; set; }
   public int Id { get; set; }
   public DateTime CreatedAt { get; set; }
   public DateTime UpdatedAt { get; set; }
@@ -14,4 +13,6 @@ public class Keep
   public int Kept { get; set; }
   public string CreatorId { get; set; }
   public Account Creator { get; set; }
+  public int VaultKeepId { get; set; }
 }
+
