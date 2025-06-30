@@ -27,8 +27,6 @@ async function getUsersVaults() {
 
 async function createVaultKeep(vaultId, keepId) {
   try {
-    vault.id = AppState.vaultKeeps.vaultId
-    activeKeep.value.id = AppState.vaultKeeps.keepId
     await vaultKeepService.createVaultKeep(vaultId, keepId)
   }
   catch (error) {
@@ -68,8 +66,9 @@ async function createVaultKeep(vaultId, keepId) {
                         Vaults
                       </button>
                       <ul class="dropdown-menu dropdown-menu-end">
-                        <li v-for="vault in vaults" :key="vault.id"><button @click="createVaultKeep(vaultId, keepId)"
-                            class="dropdown-item btn btn-dark" type="button">{{
+                        <li v-for="vault in vaults" :key="vault.id"><button
+                            @click="createVaultKeep(vault.id, activeKeep.id)" class="dropdown-item btn btn-dark"
+                            type="button">{{
                               vault.name }}</button></li>
                       </ul>
                     </div>

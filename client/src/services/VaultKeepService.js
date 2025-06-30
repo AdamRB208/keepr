@@ -5,7 +5,7 @@ import { VaultKeep } from "@/models/VaultKeep.js";
 
 class VaultKeepService {
   async createVaultKeep(vaultId, keepId) {
-    const response = await api.post('api/vaultkeeps')
+    const response = await api.post('api/vaultkeeps', { vaultId, keepId })
     logger.log('Created VaultKeep!', response.data)
     const vaultKeep = new VaultKeep(response.data)
     return vaultKeep
