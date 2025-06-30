@@ -1,15 +1,41 @@
 <script setup>
 import { AppState } from '@/AppState.js';
-import { computed, ref } from 'vue';
+import { accountService } from '@/services/AccountService.js';
+import { vaultKeepService } from '@/services/VaultKeepService.js';
+import { vaultService } from '@/services/VaultService.js';
+import { logger } from '@/utils/Logger.js';
+import { Pop } from '@/utils/Pop.js';
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
 
 
 const activeKeep = computed(() => AppState.activeKeep)
-const vault = computed(() => AppState.vaults)
+const vaults = computed(() => AppState.vaults)
 const account = computed(() => AppState.account)
 
-const fromData = ref({
-  vaultId: ''
-})
+const route = useRoute()
+
+async function getUsersVaults() {
+  try {
+    await accountService.getUsersVaults()
+  }
+  catch (error) {
+    Pop.error(error, 'COULD NOT GET VAULTS!');
+    logger.error('Could not get vaults!', error)
+  }
+}
+
+async function createVaultKeep(vaultId, keepId) {
+  try {
+    vault.id = AppState.vaultKeeps.vaultId
+    activeKeep.value.id = AppState.vaultKeeps.keepId
+    await vaultKeepService.createVaultKeep(vaultId, keepId)
+  }
+  catch (error) {
+    Pop.error(error, 'COULD NOT CREATE VAULT KEEP!');
+    logger.log('Could not create Vault Keep!', error)
+  }
+}
 
 </script>
 
@@ -36,33 +62,19 @@ const fromData = ref({
                   </div>
                   <div>
                     <div v-if="account" class="footer d-flex justify-content-between">
-                      <button class="btn btn-sm btn-outline-dark dropdown-toggle"
+                      <button @click="getUsersVaults()" class="btn btn-sm btn-outline-dark dropdown-toggle"
                         style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
                         type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Vaults
                       </button>
-                      <!-- <div v-if="account" class="dropdown-menu">
-                        <form>
-                          <select v-model="fromData.vaultId" title="Choose a vault to save this to" required>
-                            <option v-for="vault in vault" :key="vault.id" :value="vault.id">{{ vault.name }}</option>
-                          </select>
-                          <button data-bs-dismiss="modal" type="submit" class="btn btn-keeper text-dark mx-2">Save to
-                            Vault</button>
-                        </form>
-                      </div> -->
-                      <div v-if="vault" class="dropdown-menu">
-                        <form>
-                          <select v-model="fromData.vaultId">
-                            <option v-for="vault in vault" :key="vault.id" :value="vault.id" class="dropdown-item"
-                              type="button">asdgf</option>
-                          </select>
-                        </form>
-                        <li><a class="dropdown-item" href="#"></a>Vault 2</li>
-                        <li><a class="dropdown-item" href="#"></a>vault 3</li>
-                      </div>
-                      <img :src="activeKeep.creator.picture" :alt="`cover image for user ${activeKeep.creator.name}`"
-                        class="Creator-Img mb-1 me-1" :title="activeKeep.creator.name" type="button">
+                      <ul class="dropdown-menu dropdown-menu-end">
+                        <li v-for="vault in vaults" :key="vault.id"><button @click="createVaultKeep(vaultId, keepId)"
+                            class="dropdown-item btn btn-dark" type="button">{{
+                              vault.name }}</button></li>
+                      </ul>
                     </div>
+                    <img :src="activeKeep.creator.picture" :alt="`cover image for user ${activeKeep.creator.name}`"
+                      class="Creator-Img mb-1 me-1" :title="activeKeep.creator.name" type="button">
                   </div>
                 </div>
               </div>
@@ -72,6 +84,7 @@ const fromData = ref({
       </div>
     </div>
   </div>
+  <!-- </div> -->
 </template>
 
 

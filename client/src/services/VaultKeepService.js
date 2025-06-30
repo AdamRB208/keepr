@@ -4,6 +4,12 @@ import { AppState } from "@/AppState.js";
 import { VaultKeep } from "@/models/VaultKeep.js";
 
 class VaultKeepService {
+  async createVaultKeep(vaultId, keepId) {
+    const response = await api.post('api/vaultkeeps')
+    logger.log('Created VaultKeep!', response.data)
+    const vaultKeep = new VaultKeep(response.data)
+    return vaultKeep
+  }
   async getPublicVaultKeeps(vaultId) {
     const response = await api.get(`api/vaults/${vaultId}/keeps`)
     logger.log('Got Public Vault Keeps!', response.data)

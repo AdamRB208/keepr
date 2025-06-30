@@ -1,3 +1,4 @@
+import { Vault } from '@/models/Vault.js'
 import { AppState } from '../AppState.js'
 import { Account } from '../models/Account.js'
 import { logger } from '../utils/Logger.js'
@@ -20,6 +21,14 @@ class AccountService {
     const response = await api.put('/account', accountData)
     logger.log('Updated Account!', response.data)
     AppState.account = new Account(response.data)
+  }
+
+  async getUsersVaults() {
+    const response = await api.get('/account/vaults')
+    logger.log('Got vaults', response.data)
+    const vault = response.data.map(pojo => new Vault(pojo))
+    AppState.vaults = vault
+    logger.log('account vaults', vault)
   }
 
 
