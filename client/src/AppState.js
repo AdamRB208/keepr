@@ -12,6 +12,7 @@ export const AppState = reactive({
   /** @type {import('./models/Keep.js').Keep[]} user info from the database*/
   keeps: [],
   activeKeep: null,
+  accountKeeps: [],
 
   /** @type {import('./models/Vault.js').Vault[]} This only gets set when on the profile page*/
   vaults: [],

@@ -14,8 +14,7 @@ const router = useRouter()
 
 const account = computed(() => AppState.account)
 const vault = computed(() => AppState.activeVault)
-const vaultKeeps = computed(() => AppState.vaultKeeps)
-const keeps = computed(() => AppState.keeps)
+const vaultKeep = computed(() => AppState.vaultKeeps)
 
 
 onMounted(() => {
@@ -68,15 +67,15 @@ async function getPublicVaultKeeps() {
   <section class="container">
     <div class="row justify-content-center">
       <div class="col-md-10 mt-3">
-        <div v-if="vaultKeeps">
+        <div v-if="vaultKeep">
           <div class="d-flex justify-content-center mb-2">
-            <span class="badge text-bg-secondary rounded text-center p-1">{{ vaultKeeps.length }} Keeps</span>
+            <span class="badge text-bg-secondary rounded text-center p-1">{{ vaultKeep.length }} Keeps</span>
           </div>
         </div>
         <div>
           <div class="col-md-3 masonry-container">
-            <div v-for="vaultKeeps in vaultKeeps" :key="vaultKeeps.id">
-              <VaultKeepsCard :vaultKeeps="vaultKeeps" />
+            <div v-for="vaultKeep in vaultKeep" :key="vaultKeep.id">
+              <VaultKeepsCard :vaultKeeps="vaultKeep" />
             </div>
           </div>
         </div>

@@ -14,7 +14,7 @@ const profile = computed(() => AppState.account)
 
 const vaults = computed(() => AppState.accountVaults)
 
-const keeps = computed(() => AppState.keeps)
+const keep = computed(() => AppState.accountKeeps)
 
 
 const route = useRoute()
@@ -105,8 +105,8 @@ async function getKeepsByProfileId() {
       <div class="col-md-10 w-100">
         <div class="row w-100">
           <h2 class="ms-5">Keeps</h2>
-          <div class="col-md-3 d-flex justify-content-center masonry-container" v-for="keeps in keeps" :key="keeps.id">
-            <KeepCard :keeps="keeps" />
+          <div class="col-md-3 d-flex justify-content-center masonry-container" v-for="keep in keep" :key="keep.id">
+            <KeepCard :keep="keep" />
           </div>
         </div>
       </div>

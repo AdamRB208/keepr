@@ -6,13 +6,11 @@ import { AppState } from "@/AppState.js"
 class KeepService {
 
   async setActiveKeep(keepId) {
-    // TODO fire off request to get keep by id
     const response = await api.get(`api/keeps/${keepId}`)
     logger.log('Got keep by keepId!', response.data)
     const activeKeep = new Keep(response.data)
     AppState.activeKeep = activeKeep
     logger.log('activeKeep', activeKeep)
-
   }
 
   async getKeeps() {
@@ -38,9 +36,9 @@ class KeepService {
   }
 
   async getKeepsByProfileId(profileId) {
-    const response = await api.get(`api/profiles/${profileId}`)
+    const response = await api.get(`api/profiles/${profileId}/keeps`)
     logger.log('Got Keeps!', response.data)
-    AppState.keeps = response.data.map(pojo => new Keep(pojo))
+    AppState.accountKeeps = response.data.map(pojo => new Keep(pojo))
   }
 
 }
