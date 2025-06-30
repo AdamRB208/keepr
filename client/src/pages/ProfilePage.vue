@@ -99,7 +99,7 @@ async function getKeepsByProfileId() {
   </section>
 
   <!-- TODO create new card for keeps, still needs masonry!!! -->
-
+  <!-- FIXME cards are not rendering. check v-for variable and prop name with definition on props for card -->
   <section class="container">
     <div class="row">
       <div class="col-md-10 w-100">
@@ -128,6 +128,8 @@ async function getKeepsByProfileId() {
   text-shadow: 0 0 3px #242222;
   max-width: 7rem;
   margin-top: 1.5rem;
+  aspect-ratio: 1/1;
+    object-fit: cover;
 }
 .vault-cards {
   width: 100%;

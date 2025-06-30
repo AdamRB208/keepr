@@ -3,7 +3,6 @@ import { AppState } from '@/AppState.js';
 import KeepCard from '@/components/KeepCard.vue';
 import KeepModal from '@/components/KeepModal.vue';
 import { keepService } from '@/services/KeepService.js';
-
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
 import { computed, onMounted } from 'vue';
@@ -20,8 +19,8 @@ async function getKeeps() {
     await keepService.getKeeps()
   }
   catch (error) {
-    Pop.error(error, 'COULD NOT GET KEEPRS!')
-    logger.log('Could not get keeprs!', error)
+    Pop.error(error, 'COULD NOT GET KEEPS!')
+    logger.log('Could not get keeps!', error)
   }
 }
 
@@ -31,8 +30,8 @@ async function getKeeps() {
   <section class="container">
     <div class="row d-flex justify-content-center">
       <div class="col-md-10 masonry-container">
-        <div v-for="keeps in keep" :key="keeps.id">
-          <KeepCard :keeps="keeps" />
+        <div v-for="keep in keep" :key="keep.id">
+          <KeepCard :keep="keep" />
         </div>
       </div>
     </div>

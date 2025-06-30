@@ -43,7 +43,7 @@ const account = computed(() => AppState.account)
   <section class="container-fluid d-flex justify-content-center">
     <div class="row col-md-8">
       <div v-if="account"
-        class="col-md-6 d-flex justify-content-center border border-3 border-dark rounded-4 mt-4 shadow">
+        class="col-md-6 d-flex justify-content-center border border-3 border-dark rounded-4 mt-4 mb-4 shadow">
         <AccountForm />
       </div>
       <div v-else>
@@ -65,7 +65,7 @@ img {
 }
 
 .account-img {
-  height: 8em;
+  height: 6em;
   aspect-ratio: 1/1;
   border-radius: 50%;
 }

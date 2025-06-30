@@ -72,5 +72,7 @@ const activeKeep = computed(() => AppState.activeKeep)
   border-radius: 50%;
   text-shadow: 0 0 3px #242222;
   max-width: 3rem;
+  object-fit: cover;
+    aspect-ratio: 1/1;
 }
 </style>

@@ -12,17 +12,18 @@ const route = useRoute()
 const account = computed(() => AppState.account)
 
 defineProps({
-  keeps: { type: Keep, required: true }
+  keep: { type: Keep, required: true }
 })
 
-async function setActiveKeep(keeps, keepsId) {
+
+async function setActiveKeep(keep, keepId) {
   try {
-    AppState.activeKeep = keeps
-    await keepService.setActiveKeep(keeps)
-    logger.log('Setting active keep', keeps)
-    keepsId = route.params.keepsId || keepsId
-    logger.log('KeepsId', keepsId)
-    keeps.views++
+    AppState.activeKeep = keep
+    logger.log('keep', keep)
+    keepId = AppState.activeKeep.id
+    logger.log('KeepId', keepId)
+    await keepService.setActiveKeep(keepId)
+    // AppState.keeps.views++
   }
   catch (error) {
     Pop.error(error, 'COULD NOT SET ACTIVE KEEP!');
@@ -50,15 +51,15 @@ async function deleteKeep(keepId) {
 <template>
   <div class="Keep-Card m-1 mb-3">
     <div class="Card-Img">
-      <i v-if="account && keeps.creatorId == account.id" @click="deleteKeep(keeps.id)"
+      <i v-if="account && keep.creatorId == account.id" @click="deleteKeep(keep.id)"
         class="mdi mdi-alpha-x-circle text-danger text-end ms-2" role="button"></i>
-      <img @click="setActiveKeep(keeps, keeps.id)" :src="keeps.img" :alt="`image of ${keeps.name}`" class="Keep-Img"
+      <img @click="setActiveKeep(keep, keep.id)" :src="keep.img" :alt="`image of ${keep.name}`" class="Keep-Img"
         type="button" data-bs-toggle="modal" data-bs-target="#keepModal">
       <div class="Card-Text">
-        <span class="m-2 w-100">{{ keeps.name }}</span>
-        <RouterLink :to="{ name: 'Profile', params: { profileId: keeps.creatorId } }" class="d-flex">
-          <img :src="keeps.creator.picture" :alt="`cover image for user ${keeps.creator.name}`"
-            class="Creator-Img mb-1 me-1" :title="keeps.creator.name" type="button">
+        <span class="m-2 w-100">{{ keep.name }}</span>
+        <RouterLink :to="{ name: 'Profile', params: { profileId: keep.creatorId } }" class="d-flex">
+          <img :src="keep.creator.picture" :alt="`cover image for user ${keep.creator.name}`"
+            class="Creator-Img mb-1 me-1" :title="keep.creator.name" type="button">
         </RouterLink>
       </div>
     </div>
@@ -110,5 +111,7 @@ i {
   min-width: 100%;
   min-block-size: 2.5rem;
   height: 44px;
+  aspect-ratio: 1/1;
+    object-fit: cover;
 }
 </style>

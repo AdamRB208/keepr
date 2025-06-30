@@ -5,11 +5,12 @@ import { AppState } from "@/AppState.js"
 
 class KeepService {
 
-  setActiveKeep(activeKeep) {
+  async setActiveKeep(keepId) {
     // TODO fire off request to get keep by id
-
+    const response = await api.get(`api/keeps/${keepId}`)
+    logger.log('Got keep by keepId!', response.data)
+    const activeKeep = new Keep(response.data)
     AppState.activeKeep = activeKeep
-
     logger.log('activeKeep', activeKeep)
 
   }
