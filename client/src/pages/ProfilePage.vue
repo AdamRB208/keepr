@@ -14,7 +14,9 @@ const profile = computed(() => AppState.account)
 
 const vaults = computed(() => AppState.accountVaults)
 
-const keep = computed(() => AppState.accountKeeps)
+const keep = computed(() => AppState.keeps)
+
+const account = computed(() => AppState.account)
 
 
 const route = useRoute()
@@ -63,7 +65,7 @@ async function getKeepsByProfileId() {
 
 
 <template>
-  <section class="container">
+  <section v-if="account && profile" class="container">
     <div class="row justify-content-center">
       <div class="col-md-10 d-flex w-100 flex-column">
         <div>
@@ -85,29 +87,24 @@ async function getKeepsByProfileId() {
 
   <!-- TODO fix overlap issue with cards -->
 
-  <section class="container">
-    <div class="row">
-      <div class="col-md-10 w-100">
-        <div class="row w-100">
-          <h1 class="ms-5">Vaults</h1>
-          <div class="col-md-3 mt-4 d-flex justify-content-center" v-for="vaults in vaults" :key="vaults.id">
-            <VaultsCard :vaults="vaults" class="vault-cards" />
-          </div>
+  <section v-if="vaults" class="container">
+    <h1 class="text-center">Vaults</h1>
+    <div class="row d-flex justify-content-center fs-1">
+      <div v-for="vaults in vaults" :key="vaults.id" class="col-md-3 mt-4 d-flex justify-content-center">
+        <div v-if="vaults.creatorId === profile.id">
+          <VaultsCard :vaults="vaults" class="vault-cards" />
         </div>
       </div>
     </div>
   </section>
 
   <!-- TODO create new card for keeps, still needs masonry!!! -->
-  <!-- FIXME cards are not rendering. check v-for variable and prop name with definition on props for card -->
   <section class="container">
-    <div class="row">
-      <div class="col-md-10 w-100">
-        <div class="row w-100">
-          <h2 class="ms-5">Keeps</h2>
-          <div class="col-md-3 d-flex justify-content-center masonry-container" v-for="keep in keep" :key="keep.id">
-            <KeepCard :keep="keep" />
-          </div>
+    <h2 class="ms-5 text-center">Keeps</h2>
+    <div class="row w-100 d-flex justify-content-center">
+      <div v-for="keep in keep" :key="keep.id" class="col-md-3 masonry-container">
+        <div v-if="keep.creatorId == profile.id">
+          <KeepCard :keep="keep" />
         </div>
       </div>
     </div>
@@ -129,8 +126,9 @@ async function getKeepsByProfileId() {
   max-width: 7rem;
   margin-top: 1.5rem;
   aspect-ratio: 1/1;
-    object-fit: cover;
+  object-fit: cover;
 }
+
 .vault-cards {
   width: 100%;
 }
