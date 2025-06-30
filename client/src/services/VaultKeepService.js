@@ -10,6 +10,14 @@ class VaultKeepService {
     AppState.vaultKeeps = response.data.map(pojo => new VaultKeep(pojo))
   }
 
+  async deleteVaultKeep(vaultKeepId) {
+    const response = await api.delete(`api/vaultkeeps/${vaultKeepId}`)
+    logger.log('Deleted VaultKeep!', response.data)
+    const vaultKeep = AppState.vaultKeeps
+    const index = vaultKeep.findIndex(vaultKeep => vaultKeep.id == vaultKeepId)
+    vaultKeep.splice(index, 1)
+  }
+
 }
 
 export const vaultKeepService = new VaultKeepService();

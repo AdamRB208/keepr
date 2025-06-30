@@ -1,18 +1,38 @@
 <script setup>
-import { Keep } from '@/models/Keep.js';
+import { AppState } from '@/AppState.js';
 import { VaultKeep } from '@/models/VaultKeep.js';
+import { vaultKeepService } from '@/services/VaultKeepService.js';
+import { logger } from '@/utils/Logger.js';
+import { Pop } from '@/utils/Pop.js';
+import { computed } from 'vue';
 
-
+const account = computed(() => AppState.account)
 defineProps({
-  vaultKeeps: {type: VaultKeep, required: true},
-  keeps: {type: Keep, required: true}
+  vaultKeeps: { type: VaultKeep, required: true },
 })
+
+async function deleteVaultKeep(vaultKeepId) {
+  try {
+    const confirmed = await Pop.confirm("Are you sure you want to delete this VaultKeep?")
+    if (!confirmed) {
+      return
+    }
+    await vaultKeepService.deleteVaultKeep(vaultKeepId)
+  }
+  catch (error) {
+    Pop.error(error, 'COULD NOT DELETE VAULT KEEP!');
+    logger.log('Could not delete vault keep!', error)
+  }
+}
+
 </script>
 
 <!-- TODO fix issue with card display -->
 <template>
   <div v-if="vaultKeeps" class="VaultKeep-Card m-1 mb-3">
     <div class="Card-Img">
+      <i v-if="account && vaultKeeps.creatorId == account.id" @click="deleteVaultKeep(vaultKeeps.id)"
+        class="mdi mdi-alpha-x-circle text-danger text-end ms-2" role="button"></i>
       <img :src="vaultKeeps.img" :alt="`image of ${vaultKeeps.name}`" class="VaultKeep-Img" type="button">
       <div class="Card-Text">
         <p class="m-2 w-100">{{ vaultKeeps.name }}</p>
