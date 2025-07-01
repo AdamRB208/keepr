@@ -7,6 +7,8 @@ import { Pop } from '@/utils/Pop.js';
 import { computed } from 'vue';
 
 const account = computed(() => AppState.account)
+const vault = computed(() => AppState.activeVault)
+const vaultKeep = computed(() => AppState.vaultKeeps)
 defineProps({
   vaultKeeps: { type: VaultKeep, required: true },
 })
@@ -29,9 +31,9 @@ async function deleteVaultKeep(vaultKeepId) {
 
 <!-- TODO fix issue with card display -->
 <template>
-  <div v-if="vaultKeeps" class="VaultKeep-Card m-1 mb-3">
+  <div v-if="vaultKeep" class="VaultKeep-Card m-1 mb-3">
     <div class="Card-Img">
-      <i v-if="account && vaultKeeps.creatorId == account.id" @click="deleteVaultKeep(vaultKeeps.id)"
+      <i v-if="account && vaultKeeps.creator.id == account.id" @click="deleteVaultKeep(vaultKeep.id)"
         class="mdi mdi-alpha-x-circle text-danger text-end ms-2" role="button"></i>
       <img :src="vaultKeeps.img" :alt="`image of ${vaultKeeps.name}`" class="VaultKeep-Img" type="button">
       <div class="Card-Text">
